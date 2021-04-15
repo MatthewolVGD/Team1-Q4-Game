@@ -35,10 +35,18 @@ public class EnemyScript : MonoBehaviour
         layerMask = ~layerMask;
         float DistanceToTheGround = GetComponent<BoxCollider2D>().bounds.extents.y;
         isGrounded = Physics2D.Raycast(transform.position, Vector2.down, DistanceToTheGround + 0.01f, layerMask);
+        bool wallToRight = Physics2D.Raycast(transform.position, Vector2.right, 2f, layerMask);
+        bool wallToLeft = Physics2D.Raycast(transform.position, -Vector2.right, 2f, layerMask);
+        Debug.DrawRay(transform.position, Vector2.right, Color.yellow);
+        Debug.DrawRay(transform.position, -Vector2.right, Color.yellow);
         if (player.transform.position.y > transform.position.y + 1 && isGrounded)
         {
-            Debug.Log("Boom");
-            rb.velocity = new Vector2(rb.velocity.x, jumpStrength);
+            if(wallToRight || wallToLeft)
+            {
+                Debug.Log("Boom");
+                rb.velocity = new Vector2(rb.velocity.x, jumpStrength);
+            }
+            
         }
     }
 }
