@@ -561,10 +561,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+  health: 0
   jumpStrength: 10
   damage: 0
   attackTimer: 0
+  attackDist: 0
   player: {fileID: 294595250}
+  chasePlayerDist: 50
 --- !u!50 &1278006686
 Rigidbody2D:
   serializedVersion: 4
