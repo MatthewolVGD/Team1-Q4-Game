@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
 {
-    public float speed;
-    public int health;
-    public float jumpStrength;
-    public int damage;
-    public float attackTimer;
-    public float attackDist;
-    float ogAttackTimer;
-    public Transform player;
-    Rigidbody2D rb;
-    public bool isGrounded;
-    public float chasePlayerDist;
-    public int detAdd;
+
+    #region MainVariables
+    public float speed;//Enemy Speed
+    public int health;//Enemy Health
+    public float jumpStrength;//Enemy Jump Velocity
+    public int damage;//Enemy Damage
+    public float attackTimer;//Time between attacks
+    public float attackDist;//How close the enemy has to be to attack the player
+    float ogAttackTimer;//Tracking original attack time for reset purposes
+    public Transform player;//The player
+    Rigidbody2D rb;//Enemy's rigidbody
+    public float chasePlayerDist;//How close the player has to be to chase them
+    public int detAdd;//Amount of determination added to player after this enemy dies
+    #endregion
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +34,7 @@ public class EnemyScript : MonoBehaviour
         }
 
         attackTimer -= Time.deltaTime;
-        if(Vector2.Distance(transform.position, player.transform.position) < attackDist && attackTimer <= 0f)
+        if(Vector2.Distance(transform.position, player.transform.position) < attackDist && attackTimer <= 0f)//Only attack player if they're within this distance
         {
             
             Attack();
@@ -40,7 +42,7 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
-    void Movement()
+    void Movement()//Handles all enemy movement
     {
         if (transform.position.x - player.position.x < -1.5)//Player to right
         {
@@ -79,12 +81,12 @@ public class EnemyScript : MonoBehaviour
         
     }
 
-    void Attack()
+    void Attack()//Handles enemy attack
     {
 
     }
 
-    public void Damage(int damage, GameObject dealer)
+    public void Damage(int damage, GameObject dealer)//Handles enemy taking damage
     {
         health -= damage;
         if (health <= 0)
