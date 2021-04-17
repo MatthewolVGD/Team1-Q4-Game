@@ -230,8 +230,6 @@ GameObject:
   - component: {fileID: 1030480143}
   - component: {fileID: 1030480142}
   - component: {fileID: 1030480141}
-  - component: {fileID: 1030480147}
-  - component: {fileID: 1030480146}
   - component: {fileID: 1030480145}
   m_Layer: 9
   m_Name: Player
@@ -360,37 +358,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1030480140}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cb1fb19dcd38eb43aaa01b476002bba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jumpStrength: 500
-  numberOfJumps: 0
---- !u!114 &1030480146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030480140}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93bf33303ef1a3b479addea86c92a290, type: 3}
+  m_Script: {fileID: 11500000, guid: 12b7566080492da40a02ac99bf035c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speedCap: 5
---- !u!114 &1030480147
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030480140}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5705492ed08b4b445a62106f14e30777, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   accel: 10
+  jumpStrength: 500
+  numberOfJumps: 0
+  damage: 0
+  maxHealth: 10
 --- !u!1 &1100371895
 GameObject:
   m_ObjectHideFlags: 0
