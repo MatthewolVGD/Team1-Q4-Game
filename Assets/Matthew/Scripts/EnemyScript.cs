@@ -13,8 +13,9 @@ public class EnemyScript : MonoBehaviour
     float ogAttackTimer;
     public Transform player;
     Rigidbody2D rb;
-    bool isGrounded;
+    public bool isGrounded;
     public float chasePlayerDist;
+    public int detAdd;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,12 +34,13 @@ public class EnemyScript : MonoBehaviour
         attackTimer -= Time.deltaTime;
         if(Vector2.Distance(transform.position, player.transform.position) < attackDist && attackTimer <= 0f)
         {
+            
             Attack();
             attackTimer = ogAttackTimer;
         }
     }
 
-    public void Movement()
+    void Movement()
     {
         if (transform.position.x - player.position.x < -1.5)//Player to right
         {
@@ -54,26 +56,41 @@ public class EnemyScript : MonoBehaviour
         layerMask = ~layerMask;
 
         float DistanceToTheGround = GetComponent<BoxCollider2D>().bounds.extents.y;
-        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, DistanceToTheGround + 0.01f);
-
+        Ray enemyRay = new Ray(transform.position - new Vector3(0, DistanceToTheGround, 0), Vector2.down);
+        RaycastHit2D grounded = Physics2D.Raycast(transform.position - new Vector3(0, DistanceToTheGround + 0.01f,0), Vector2.down, 0.01f);
+        Debug.DrawRay(transform.position + new Vector3(0, -DistanceToTheGround, 0), Vector2.down, Color.blue);
         bool wallToRight = Physics2D.Raycast(transform.position, Vector2.right, 4f, layerMask);
         bool wallToLeft = Physics2D.Raycast(transform.position, -Vector2.right, 4f, layerMask);
-
-        
-        if (player.transform.position.y > transform.position.y + 1f && isGrounded)
+        if(grounded.collider != null)
         {
-            
-            if (wallToRight || wallToLeft)
+            if (player.transform.position.y > transform.position.y + 1f && grounded.collider.gameObject.tag == "Terrain")
             {
-                
-                rb.velocity = new Vector2(rb.velocity.x, jumpStrength);
-            }
 
+                if (wallToRight || wallToLeft)
+                {
+
+                    rb.velocity = new Vector2(rb.velocity.x, jumpStrength);
+                }
+
+            }
+            Debug.Log(grounded.collider.gameObject.name);
         }
+        
+        
     }
 
-    public void Attack()
+    void Attack()
     {
 
+    }
+
+    public void Damage(int damage, GameObject dealer)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+        
     }
 }
