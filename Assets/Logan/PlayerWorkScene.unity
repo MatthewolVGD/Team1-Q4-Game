@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 241889773}
   - component: {fileID: 241889772}
   - component: {fileID: 241889771}
+  - component: {fileID: 241889774}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -174,7 +175,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -204,6 +205,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &241889774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 241889770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e393c264a6bd0942a2bde59e3b17f69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1030480140}
 --- !u!1 &1030480140
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,7 +230,10 @@ GameObject:
   - component: {fileID: 1030480143}
   - component: {fileID: 1030480142}
   - component: {fileID: 1030480141}
-  m_Layer: 0
+  - component: {fileID: 1030480147}
+  - component: {fileID: 1030480146}
+  - component: {fileID: 1030480145}
+  m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,11 +346,51 @@ Transform:
   m_GameObject: {fileID: 1030480140}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1030480145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030480140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cb1fb19dcd38eb43aaa01b476002bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpStrength: 500
+  numberOfJumps: 0
+--- !u!114 &1030480146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030480140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93bf33303ef1a3b479addea86c92a290, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedCap: 5
+--- !u!114 &1030480147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030480140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5705492ed08b4b445a62106f14e30777, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  accel: 10
 --- !u!1 &1100371895
 GameObject:
   m_ObjectHideFlags: 0
@@ -348,7 +405,7 @@ GameObject:
   - component: {fileID: 1100371896}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
