@@ -17,6 +17,10 @@ public class EnemyScript : MonoBehaviour
     Rigidbody2D rb;//Enemy's rigidbody
     public float chasePlayerDist;//How close the player has to be to chase them
     public int detAdd;//Amount of determination added to player after this enemy dies
+    public bool isCharger;//Whether the enemy is a skeleton or a charging enemy
+    public float chargerAtkDist;//How close the player has to be for a charging enemy to attack them
+    public float chargeSpeed;//Speed enemy charges at
+    public bool charging;//Whether enemy is charging
     #endregion
     // Start is called before the first frame update
     void Start()
@@ -34,23 +38,42 @@ public class EnemyScript : MonoBehaviour
         }
 
         attackTimer -= Time.deltaTime;
-        if(Vector2.Distance(transform.position, player.transform.position) < attackDist && attackTimer <= 0f)//Only attack player if they're within this distance
+        if(Vector2.Distance(transform.position, player.transform.position) < attackDist && attackTimer <= 0f && !isCharger)//Only attack player if they're within this distance, skeleton
         {
-            
             Attack();
+            attackTimer = ogAttackTimer;
+        }
+
+        if (Vector2.Distance(transform.position, player.transform.position) < chargerAtkDist && attackTimer <= 0f && isCharger)//Only attack player if they're within this distance, charger
+        {
+            StartCoroutine(ChargeAttack());
             attackTimer = ogAttackTimer;
         }
     }
 
     void Movement()//Handles all enemy movement
     {
-        if (transform.position.x - player.position.x < -1.5)//Player to right
+        if(!isCharger)
         {
-            rb.velocity = new Vector2(speed, rb.velocity.y);
+            if (transform.position.x - player.position.x < -1.5)//Player to right
+            {
+                rb.velocity = new Vector2(speed, rb.velocity.y);
+            }
+            else if (transform.position.x - player.position.x > 1.5)//Player to left
+            {
+                rb.velocity = new Vector2(-speed, rb.velocity.y);
+            }
         }
-        else if (transform.position.x - player.position.x > 1.5)//Player to left
+        else if(isCharger)
         {
-            rb.velocity = new Vector2(-speed, rb.velocity.y);
+            if (transform.position.x - player.position.x < -3f)//Player to right
+            {
+                rb.velocity = new Vector2(speed, rb.velocity.y);
+            }
+            else if (transform.position.x - player.position.x > 3f)//Player to left
+            {
+                rb.velocity = new Vector2(-speed, rb.velocity.y);
+            }
         }
 
 
@@ -83,15 +106,39 @@ public class EnemyScript : MonoBehaviour
 
     void Attack()//Handles enemy attack
     {
-
+        player.gameObject.GetComponent<Player>().Damage(damage);
     }
 
+    IEnumerator ChargeAttack()
+    {
+        if (transform.position.x - player.position.x < -0.1f)//Player to right
+        {
+            rb.velocity = new Vector2(chargeSpeed, rb.velocity.y);
+        }
+        else if (transform.position.x - player.position.x > 0.1f)//Player to left
+        {
+            rb.velocity = new Vector2(-chargeSpeed, rb.velocity.y);
+        }
+        charging = true;
+        yield return new WaitForSeconds(3f);
+        charging = false;
+        
+    }
     public void Damage(int damage, GameObject dealer)//Handles enemy taking damage
     {
         health -= damage;
         if (health <= 0)
         {
             Destroy(gameObject);
+        }
+        dealer.gameObject.GetComponent<Player>();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(charging && collision.gameObject.tag == "Player")
+        {
+            player.gameObject.GetComponent<Player>().Damage(damage);
         }
     }
 }
