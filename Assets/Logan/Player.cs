@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float speedCap;
-    public float accel;
+    public float speed;
     private Rigidbody2D rb2;
     private SpriteRenderer sr;
     public float jumpStrength;
@@ -31,19 +30,30 @@ public class Player : MonoBehaviour
         if (Input.GetAxis("Horizontal") > 0)
         {
             sr.flipX = false;
-            rb2.AddForce(new Vector2(accel, 0));
+            rb2.velocity = (new Vector2(speed, rb2.velocity.y));
         }
 
         //Move left
         if (Input.GetAxis("Horizontal") < 0)
         {
             sr.flipX = true;
-            rb2.AddForce(new Vector2(-accel, 0));
+            rb2.velocity = (new Vector2(-speed, rb2.velocity.y));
         }
     }
 
     void Update()
     {
+        Debug.DrawRay(transform.position, gameObject.transform.right, Color.red);
+        //Player flipping
+        if (rb2.velocity.x < 0f)
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        }
+
         //Jump
         if (Input.GetButtonDown("Jump"))
         {
@@ -51,27 +61,21 @@ public class Player : MonoBehaviour
         }
         if (Input.GetButtonDown("Jump") && numberOfJumps <= 1)
         {
-            rb2.AddForce(new Vector2(0, jumpStrength));
+            rb2.velocity = new Vector2(rb2.velocity.x, jumpStrength);
         }
 
         float DistanceToTheGround = GetComponent<BoxCollider2D>().bounds.extents.y;
         RaycastHit2D grounded = Physics2D.Raycast(transform.position - new Vector3(0, DistanceToTheGround + 0.01f, 0), Vector2.down, 0.01f);
-        Debug.DrawRay(transform.position, Vector2.down, Color.blue);
 
         if (grounded.collider.gameObject.tag == "Terrain")
         {
             numberOfJumps = OGJumps;
         }
 
-        //Speed Limit
-        if (rb2.velocity.x > speedCap)
+        //Attack
+        if(Input.GetMouseButtonDown(0))
         {
-            rb2.velocity = new Vector2(speedCap, rb2.velocity.y);
-        }
-
-        if (rb2.velocity.x < -speedCap)
-        {
-            rb2.velocity = new Vector2(-speedCap, rb2.velocity.y);
+            Attack();
         }
     }
     //Damage
@@ -82,5 +86,32 @@ public class Player : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+    //Attack
+    void Attack()
+    {
+        int layermask = 1 << 9;
+        layermask = ~layermask;
+        RaycastHit2D potentialEnemy;
+
+        if (gameObject.GetComponent<SpriteRenderer>().flipX)
+        {
+            potentialEnemy = Physics2D.Raycast(transform.position, -gameObject.transform.right, 4f, layermask);
+        }
+        else
+        {
+            potentialEnemy = Physics2D.Raycast(transform.position, gameObject.transform.right, 4f, layermask);
+        }
+
+
+
+        if (potentialEnemy.collider != null)
+        {
+            if (potentialEnemy.collider.gameObject.tag == "Enemy")
+            {
+                potentialEnemy.collider.gameObject.GetComponent<EnemyScript>().Damage(damage, gameObject);
+            }
+        }
+
     }
 }
