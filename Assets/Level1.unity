@@ -473,7 +473,7 @@ Transform:
   m_GameObject: {fileID: 870260674}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 13.25, y: -0.22, z: 0}
-  m_LocalScale: {x: 20, y: 3, z: 1}
+  m_LocalScale: {x: 20, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -670,7 +670,7 @@ MonoBehaviour:
   jumpStrength: 10
   numberOfJumps: 0
   damage: 10
-  maxHealth: 10
+  maxHealth: 3
 --- !u!212 &1134782062
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -729,7 +729,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1134782060}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.5, y: 3.5, z: 0}
+  m_LocalPosition: {x: 7.27, y: 4.42, z: 0}
   m_LocalScale: {x: 2, y: 4, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
