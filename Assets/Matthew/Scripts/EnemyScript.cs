@@ -32,7 +32,7 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Vector2.Distance(transform.position, player.transform.position) < chasePlayerDist)//Only chase player if they're within this distance
+        if(Vector2.Distance(transform.position, player.transform.position) < chasePlayerDist && !charging)//Only chase player if they're within this distance
         {
             Movement();
         }
@@ -44,7 +44,7 @@ public class EnemyScript : MonoBehaviour
             attackTimer = ogAttackTimer;
         }
 
-        if (Vector2.Distance(transform.position, player.transform.position) < chargerAtkDist && attackTimer <= 0f && isCharger)//Only attack player if they're within this distance, charger
+        if ((transform.position.x - player.transform.position.x < -chargerAtkDist || transform.position.x - player.transform.position.x > chargerAtkDist) && attackTimer <= 0f && isCharger)//Only attack player if they're within this distance, charger
         {
             StartCoroutine(ChargeAttack());
             attackTimer = ogAttackTimer;
@@ -63,6 +63,10 @@ public class EnemyScript : MonoBehaviour
             {
                 rb.velocity = new Vector2(-speed, rb.velocity.y);
             }
+            else if(transform.position.x - player.position.x >= -3f || transform.position.x - player.position.x <= 3f)
+            {
+                rb.velocity = new Vector2(0, rb.velocity.y);
+            }
         }
         else if(isCharger)
         {
@@ -74,6 +78,10 @@ public class EnemyScript : MonoBehaviour
             {
                 rb.velocity = new Vector2(-speed, rb.velocity.y);
             }
+            else if (transform.position.x - player.position.x >= -6f || transform.position.x - player.position.x <= 6f)
+            {
+                rb.velocity = new Vector2(0, rb.velocity.y);
+            }
         }
 
 
@@ -84,21 +92,23 @@ public class EnemyScript : MonoBehaviour
         Ray enemyRay = new Ray(transform.position - new Vector3(0, DistanceToTheGround, 0), Vector2.down);
         RaycastHit2D grounded = Physics2D.Raycast(transform.position - new Vector3(0, DistanceToTheGround + 0.01f,0), Vector2.down, 0.01f);
         Debug.DrawRay(transform.position + new Vector3(0, -DistanceToTheGround, 0), Vector2.down, Color.blue);
-        bool wallToRight = Physics2D.Raycast(transform.position, Vector2.right, 4f, layerMask);
-        bool wallToLeft = Physics2D.Raycast(transform.position, -Vector2.right, 4f, layerMask);
+        RaycastHit2D wallToRight = Physics2D.Raycast(transform.position, Vector2.right, 4f, layerMask);
+        RaycastHit2D wallToLeft = Physics2D.Raycast(transform.position, -Vector2.right, 4f, layerMask);
         if(grounded.collider != null)
         {
             if (player.transform.position.y > transform.position.y + 1f && grounded.collider.gameObject.tag == "Terrain")
             {
-
-                if (wallToRight || wallToLeft)
+                if (wallToRight.collider != null && wallToLeft.collider != null)
                 {
+                    if (wallToRight.collider.gameObject.tag == "Terrain" || wallToLeft.collider.gameObject.tag == "Terrain")
+                    {
 
-                    rb.velocity = new Vector2(rb.velocity.x, jumpStrength);
+                        rb.velocity = new Vector2(rb.velocity.x, jumpStrength);
+                    }
                 }
+                
 
             }
-            Debug.Log(grounded.collider.gameObject.name);
         }
         
         
@@ -111,6 +121,10 @@ public class EnemyScript : MonoBehaviour
 
     IEnumerator ChargeAttack()
     {
+        charging = true;
+        Debug.Log("Charging");
+        yield return new WaitForSeconds(1.5f);
+        Debug.Log("Moving");
         if (transform.position.x - player.position.x < -0.1f)//Player to right
         {
             rb.velocity = new Vector2(chargeSpeed, rb.velocity.y);
@@ -119,10 +133,10 @@ public class EnemyScript : MonoBehaviour
         {
             rb.velocity = new Vector2(-chargeSpeed, rb.velocity.y);
         }
-        charging = true;
+        
         yield return new WaitForSeconds(3f);
         charging = false;
-        
+        Debug.Log("Stop charging");
     }
     public void Damage(int damage, GameObject dealer)//Handles enemy taking damage
     {
