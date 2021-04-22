@@ -55,22 +55,22 @@ public class EnemyScript : MonoBehaviour
     {
         if(!isCharger)
         {
-            if (transform.position.x - player.position.x < -1.5)//Player to right
+            if (transform.position.x - player.position.x < -3f)//Player to right
             {
                 rb.velocity = new Vector2(speed, rb.velocity.y);
             }
-            else if (transform.position.x - player.position.x > 1.5)//Player to left
+            else if (transform.position.x - player.position.x > 3f)//Player to left
             {
                 rb.velocity = new Vector2(-speed, rb.velocity.y);
             }
         }
         else if(isCharger)
         {
-            if (transform.position.x - player.position.x < -3f)//Player to right
+            if (transform.position.x - player.position.x < -6f)//Player to right
             {
                 rb.velocity = new Vector2(speed, rb.velocity.y);
             }
-            else if (transform.position.x - player.position.x > 3f)//Player to left
+            else if (transform.position.x - player.position.x > 6f)//Player to left
             {
                 rb.velocity = new Vector2(-speed, rb.velocity.y);
             }
