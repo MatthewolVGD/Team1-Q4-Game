@@ -33,7 +33,7 @@ public class ChargeEnemyScript : MonoBehaviour
         {
             Movement();
         }
-
+        attackTimer -= Time.deltaTime;
         if (Mathf.Abs(transform.position.x - player.transform.position.x) <= chargerAtkDist && attackTimer <= 0f)//Only attack player if they're within this distance, charger
         {
             StartCoroutine(ChargeAttack());
