@@ -121,35 +121,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &185441004 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6716713459386076020, guid: ec0e66495148efe49945463191e0853c,
-    type: 3}
-  m_PrefabInstance: {fileID: 6716713458112798445}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &185441005
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 185441004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7c788f843b43be498952445dcef13c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3
-  health: 3
-  jumpStrength: 10
-  damage: 1
-  attackTimer: 6
-  player: {fileID: 294595250}
-  chasePlayerDist: 50
-  detAdd: 1
-  chargerAtkDist: 7
-  chargeSpeed: 10
-  charging: 0
 --- !u!1 &278707647
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,7 +202,7 @@ Transform:
   m_LocalScale: {x: 40, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &278707650
 Rigidbody2D:
@@ -655,7 +626,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &6716713458112798445
+--- !u!1001 &1853416929
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -669,53 +640,38 @@ PrefabInstance:
       objectReference: {fileID: 294595250}
     - target: {fileID: 6716713459386076017, guid: ec0e66495148efe49945463191e0853c,
         type: 3}
-      propertyPath: isCharger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6716713459386076017, guid: ec0e66495148efe49945463191e0853c,
-        type: 3}
-      propertyPath: chargerAtkDist
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 6716713459386076017, guid: ec0e66495148efe49945463191e0853c,
-        type: 3}
-      propertyPath: speed
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6716713459386076017, guid: ec0e66495148efe49945463191e0853c,
-        type: 3}
-      propertyPath: attackTimer
+      propertyPath: attackDist
       value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6716713459386076017, guid: ec0e66495148efe49945463191e0853c,
-        type: 3}
-      propertyPath: chargeSpeed
-      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6716713459386076018, guid: ec0e66495148efe49945463191e0853c,
         type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 6200000, guid: e3d6edc8ae8c1534ba7d921fa90d0f70, type: 2}
-    - target: {fileID: 6716713459386076019, guid: ec0e66495148efe49945463191e0853c,
+      propertyPath: m_Offset.y
+      value: -0.00013500452
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716713459386076018, guid: ec0e66495148efe49945463191e0853c,
         type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 6200000, guid: e3d6edc8ae8c1534ba7d921fa90d0f70, type: 2}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.1831896
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716713459386076018, guid: ec0e66495148efe49945463191e0853c,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.186781
+      objectReference: {fileID: 0}
     - target: {fileID: 6716713459386076020, guid: ec0e66495148efe49945463191e0853c,
         type: 3}
       propertyPath: m_Name
-      value: BasicEnemy
+      value: Skeleton
       objectReference: {fileID: 0}
     - target: {fileID: 6716713459386076022, guid: ec0e66495148efe49945463191e0853c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.38
+      value: -14.61
       objectReference: {fileID: 0}
     - target: {fileID: 6716713459386076022, guid: ec0e66495148efe49945463191e0853c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.48
+      value: 2.95
       objectReference: {fileID: 0}
     - target: {fileID: 6716713459386076022, guid: ec0e66495148efe49945463191e0853c,
         type: 3}
@@ -745,7 +701,7 @@ PrefabInstance:
     - target: {fileID: 6716713459386076022, guid: ec0e66495148efe49945463191e0853c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6716713459386076022, guid: ec0e66495148efe49945463191e0853c,
         type: 3}
@@ -767,11 +723,31 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 6716713459386076022, guid: ec0e66495148efe49945463191e0853c,
+    - target: {fileID: 6716713459386076023, guid: ec0e66495148efe49945463191e0853c,
         type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6716713459386076017, guid: ec0e66495148efe49945463191e0853c, type: 3}
+    - target: {fileID: 6716713459386076023, guid: ec0e66495148efe49945463191e0853c,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716713459386076023, guid: ec0e66495148efe49945463191e0853c,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716713459386076023, guid: ec0e66495148efe49945463191e0853c,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 441b8d79dbf018b4b801c0f0388cc459,
+        type: 3}
+    - target: {fileID: 6716713459386076023, guid: ec0e66495148efe49945463191e0853c,
+        type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec0e66495148efe49945463191e0853c, type: 3}

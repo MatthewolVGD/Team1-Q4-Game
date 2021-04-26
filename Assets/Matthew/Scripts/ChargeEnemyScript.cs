@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ChargeEnemyScript : MonoBehaviour
@@ -43,35 +42,40 @@ public class ChargeEnemyScript : MonoBehaviour
 
     void Movement()//Handles all enemy movement
     {
-        
-            if (transform.position.x - player.position.x < -6f)//Player to right
-            {
-                rb.velocity = new Vector2(speed, rb.velocity.y);
-            }
-            else if (transform.position.x - player.position.x > 6f)//Player to left
-            {
-                rb.velocity = new Vector2(-speed, rb.velocity.y);
-            }
-            else if (transform.position.x - player.position.x >= -6f || transform.position.x - player.position.x <= 6f)
-            {
-                rb.velocity = new Vector2(0, rb.velocity.y);
-            }
+
+        if (transform.position.x - player.position.x < -6f)//Player to right
+        {
+            rb.velocity = new Vector2(speed, rb.velocity.y);
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else if (transform.position.x - player.position.x > 6f)//Player to left
+        {
+            rb.velocity = new Vector2(-speed, rb.velocity.y);
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
+        else if (transform.position.x - player.position.x >= -6f || transform.position.x - player.position.x <= 6f)
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
 
 
         int layerMask = 1 << 8;
         layerMask = ~layerMask;
 
         float DistanceToTheGround = GetComponent<BoxCollider2D>().bounds.extents.y;
+        float DistanceToEdgeOfBox = GetComponent<BoxCollider2D>().bounds.extents.x;
         Ray enemyRay = new Ray(transform.position - new Vector3(0, DistanceToTheGround, 0), Vector2.down);
         RaycastHit2D grounded = Physics2D.Raycast(transform.position - new Vector3(0, DistanceToTheGround + 0.01f, 0), Vector2.down, 0.01f);
         Debug.DrawRay(transform.position + new Vector3(0, -DistanceToTheGround, 0), Vector2.down, Color.blue);
-        RaycastHit2D wallToRight = Physics2D.Raycast(transform.position, Vector2.right, 4f, layerMask);
-        RaycastHit2D wallToLeft = Physics2D.Raycast(transform.position, -Vector2.right, 4f, layerMask);
+        RaycastHit2D wallToRight = Physics2D.Raycast(transform.position + new Vector3(DistanceToEdgeOfBox + 0.01f, 0, 0), Vector2.right, 2f, layerMask);
+        RaycastHit2D wallToLeft = Physics2D.Raycast(transform.position - new Vector3(DistanceToEdgeOfBox + 0.01f, 0, 0), -Vector2.right, 2f, layerMask);
+        Debug.DrawRay(transform.position + new Vector3(DistanceToEdgeOfBox + 0.01f, 0, 0), Vector2.right, Color.blue);
+        Debug.DrawRay(transform.position + new Vector3(-DistanceToEdgeOfBox - 0.01f, 0, 0), -Vector2.right, Color.blue);
         if (grounded.collider != null)
         {
             if (player.transform.position.y > transform.position.y + 1f && grounded.collider.gameObject.tag == "Terrain")
             {
-                if (wallToRight.collider != null && wallToLeft.collider != null)
+                if (wallToRight.collider != null || wallToLeft.collider != null)
                 {
                     if (wallToRight.collider.gameObject.tag == "Terrain" || wallToLeft.collider.gameObject.tag == "Terrain")
                     {
@@ -90,23 +94,38 @@ public class ChargeEnemyScript : MonoBehaviour
     IEnumerator ChargeAttack()
     {
         charging = true;
+        string chargeDir = null;
+        rb.velocity = new Vector2(0, rb.velocity.y);
+        if (transform.position.x - player.position.x < -0.1f)//Player to right
+        {
+            chargeDir = "Right";
+        }
+        else if (transform.position.x - player.position.x > 0.1f)//Player to left
+        {
+            chargeDir = "Left";
+        }
         Debug.Log("Charging");
         gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
         yield return new WaitForSeconds(1.5f);
         Debug.Log("Moving");
-        if (transform.position.x - player.position.x < -0.1f)//Player to right
+        if (chargeDir != null)
         {
-            rb.velocity = new Vector2(chargeSpeed, rb.velocity.y);
+            if (chargeDir == "Right")
+            {
+                rb.velocity = new Vector2(chargeSpeed, rb.velocity.y);
+                GetComponent<SpriteRenderer>().flipX = true;
+            }
+            else if (chargeDir == "Left")
+            {
+                rb.velocity = new Vector2(-chargeSpeed, rb.velocity.y);
+                GetComponent<SpriteRenderer>().flipX = false;
+            }
         }
-        else if (transform.position.x - player.position.x > 0.1f)//Player to left
-        {
-            rb.velocity = new Vector2(-chargeSpeed, rb.velocity.y);
-        }
-        gameObject.GetComponent<SpriteRenderer>().color = Color.green;
+        gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         yield return new WaitForSeconds(3f);
         charging = false;
         Debug.Log("Stop charging");
-        gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+        gameObject.GetComponent<SpriteRenderer>().color = Color.white;
     }
 
     public void Damage(int damage, GameObject dealer)//Handles enemy taking damage
