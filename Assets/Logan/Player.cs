@@ -12,7 +12,15 @@ public class Player : MonoBehaviour
     private int OGJumps;
     public int damage;
     public int maxHealth;
-    private int currentHealth;
+    public int currentHealth;
+    public float dashSpeed;
+    private float dashTime;
+    public float startDashTime;
+    private int direction;
+    public bool dashing;
+    public int dashes;
+    public float dashTim;
+    private float OGDashTim;
 
     // Start is called before the first frame update
     void Start()
@@ -21,28 +29,39 @@ public class Player : MonoBehaviour
         rb2 = GetComponent<Rigidbody2D>();
         OGJumps = numberOfJumps;
         currentHealth = maxHealth;
+        dashTime = startDashTime;
+        dashes = 0;
+        OGDashTim = dashTim;
     }
 
     private void FixedUpdate()
     {
 
         //Move right
-        if (Input.GetAxis("Horizontal") > 0)
+        if (Input.GetAxis("Horizontal") > 0 && !dashing)
         {
             sr.flipX = false;
             rb2.velocity = (new Vector2(speed, rb2.velocity.y));
         }
+       
 
         //Move left
-        if (Input.GetAxis("Horizontal") < 0)
+        if (Input.GetAxis("Horizontal") < 0 && !dashing)
         {
             sr.flipX = true;
             rb2.velocity = (new Vector2(-speed, rb2.velocity.y));
+        }
+
+        //Stop
+        if (Input.GetAxis("Horizontal") == 0 && !dashing)
+        {
+            rb2.velocity = (new Vector2(0, rb2.velocity.y));
         }
     }
 
     void Update()
     {
+
         Debug.DrawRay(transform.position, gameObject.transform.right, Color.red);
         //Player flipping
         if (rb2.velocity.x < 0f)
@@ -67,9 +86,16 @@ public class Player : MonoBehaviour
         float DistanceToTheGround = GetComponent<BoxCollider2D>().bounds.extents.y;
         RaycastHit2D grounded = Physics2D.Raycast(transform.position - new Vector3(0, DistanceToTheGround + 0.01f, 0), Vector2.down, 0.01f);
 
-        if (grounded.collider.gameObject.tag == "Terrain")
+        if (grounded.collider != null)
         {
-            numberOfJumps = OGJumps;
+            if (grounded.collider.gameObject.tag == "Terrain")
+            {
+                numberOfJumps = OGJumps;
+                if(dashes > 0)
+                {
+                    dashes--;
+                }
+            }
         }
 
         //Attack
@@ -77,7 +103,53 @@ public class Player : MonoBehaviour
         {
             Attack();
         }
+
+        //Dash
+        dashTim -= Time.deltaTime;
+        if(dashTim <= 0)
+        {
+
+            if (direction == 0)
+            {
+                if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.LeftShift) && dashes < 1)
+                {
+                    dashing = true;
+                    direction = 1;
+                    dashes++;
+                    dashTim = OGDashTim;
+                }
+                else if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftShift) && dashes < 1)
+                {
+                    dashing = true;
+                    direction = 2;
+                    dashes++;
+                    dashTim = OGDashTim;
+                }
+            }
+            else
+            {
+                if (dashTime <= 0)
+                {
+                    direction = 0;
+                    dashTime = startDashTime;
+                    dashing = false;
+                }
+                else
+                {
+                    dashTime -= Time.deltaTime;
+                    if (direction == 1)
+                    {
+                        rb2.velocity = Vector2.left * dashSpeed;
+                    }
+                    else if (direction == 2)
+                    {
+                        rb2.velocity = Vector2.right * dashSpeed;
+                    }
+                }
+            }
+        }
     }
+
     //Damage
     public void Damage(int damage)
     {
