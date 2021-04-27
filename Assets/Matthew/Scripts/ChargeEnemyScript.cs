@@ -17,43 +17,66 @@ public class ChargeEnemyScript : MonoBehaviour
     public float chargerAtkDist;//How close the player has to be for a charging enemy to attack them
     public float chargeSpeed;//Speed enemy charges at
     public bool charging;//Whether enemy is charging
+    bool stunned;//Whether enemy is stunned
+    public float stunTime;//How long enemy is stunned
+    float ogStunTime;//OG how long enemy is stunned for reset purposes
+    public float followClose;//How close the enemy will get before it stops following the player
     #endregion
     // Start is called before the first frame update
     void Start()
     {
         ogAttackTimer = attackTimer;
+        ogStunTime = stunTime;
         rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Vector2.Distance(transform.position, player.transform.position) < chasePlayerDist && !charging)//Only chase player if they're within this distance
+        if (Vector2.Distance(transform.position, player.transform.position) < chasePlayerDist && !charging && !stunned)//Only chase player if they're within this distance
         {
             Movement();
         }
-        attackTimer -= Time.deltaTime;
-        if (Mathf.Abs(transform.position.x - player.transform.position.x) <= chargerAtkDist && attackTimer <= 0f)//Only attack player if they're within this distance, charger
+        
+        if (Mathf.Abs(transform.position.x - player.transform.position.x) <= chargerAtkDist && attackTimer <= 0f && !stunned)//Only attack player if they're within this distance, charger
         {
             StartCoroutine(ChargeAttack());
             attackTimer = ogAttackTimer;
         }
+
+        if (!stunned && !charging)
+        {
+            attackTimer -= Time.deltaTime;
+        }
+
+        if(stunned && stunTime > 0f)
+        {
+            stunTime -= Time.deltaTime;
+            Debug.Log("Stunned");
+        }
+        else if (stunned && stunTime <= 0f)
+        {
+            stunTime = ogStunTime;
+            stunned = false;
+        }
+
+        
     }
 
     void Movement()//Handles all enemy movement
     {
 
-        if (transform.position.x - player.position.x < -6f)//Player to right
+        if (transform.position.x - player.position.x < -followClose)//Player to right
         {
             rb.velocity = new Vector2(speed, rb.velocity.y);
             GetComponent<SpriteRenderer>().flipX = true;
         }
-        else if (transform.position.x - player.position.x > 6f)//Player to left
+        else if (transform.position.x - player.position.x > followClose)//Player to left
         {
             rb.velocity = new Vector2(-speed, rb.velocity.y);
             GetComponent<SpriteRenderer>().flipX = false;
         }
-        else if (transform.position.x - player.position.x >= -6f || transform.position.x - player.position.x <= 6f)
+        else if (transform.position.x - player.position.x >= -followClose || transform.position.x - player.position.x <= followClose)
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
@@ -126,6 +149,7 @@ public class ChargeEnemyScript : MonoBehaviour
         charging = false;
         Debug.Log("Stop charging");
         gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        yield break;
     }
 
     public void Damage(int damage, GameObject dealer)//Handles enemy taking damage
@@ -143,6 +167,10 @@ public class ChargeEnemyScript : MonoBehaviour
         if (charging && collision.gameObject.tag == "Player")
         {
             player.gameObject.GetComponent<Player>().Damage(damage);
+        }
+        if (charging && collision.gameObject.tag == "Terrain")
+        {
+            stunned = true;
         }
     }
 }
