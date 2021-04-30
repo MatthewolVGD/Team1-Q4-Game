@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Jump : MonoBehaviour
 {
@@ -29,7 +27,7 @@ public class Jump : MonoBehaviour
         }
 
         float DistanceToTheGround = GetComponent<BoxCollider2D>().bounds.extents.y;
-        RaycastHit2D grounded = Physics2D.Raycast(transform.position - new Vector3(0,DistanceToTheGround + 0.01f,0), Vector2.down, 0.01f);
+        RaycastHit2D grounded = Physics2D.Raycast(transform.position - new Vector3(0, DistanceToTheGround + 0.01f, 0), Vector2.down, 0.01f);
         Debug.DrawRay(transform.position, Vector2.down, Color.blue);
 
         if (grounded.collider.gameObject.tag == "Terrain")
