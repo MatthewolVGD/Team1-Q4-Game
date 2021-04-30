@@ -108,7 +108,6 @@ public class Player : MonoBehaviour
         dashTim -= Time.deltaTime;
         if(dashTim <= 0)
         {
-
             if (direction == 0)
             {
                 if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.LeftShift) && dashes < 1)
@@ -116,14 +115,12 @@ public class Player : MonoBehaviour
                     dashing = true;
                     direction = 1;
                     dashes++;
-                    dashTim = OGDashTim;
                 }
                 else if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftShift) && dashes < 1)
                 {
                     dashing = true;
                     direction = 2;
                     dashes++;
-                    dashTim = OGDashTim;
                 }
             }
             else
@@ -133,6 +130,7 @@ public class Player : MonoBehaviour
                     direction = 0;
                     dashTime = startDashTime;
                     dashing = false;
+                    dashTim = OGDashTim;
                 }
                 else
                 {
