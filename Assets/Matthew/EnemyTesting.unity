@@ -793,6 +793,16 @@ PrefabInstance:
       propertyPath: followClose
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 8819719592561075508, guid: 30e00328864670d4fa62eed4e417385e,
+        type: 3}
+      propertyPath: beforeChargeStopTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8819719592561075508, guid: 30e00328864670d4fa62eed4e417385e,
+        type: 3}
+      propertyPath: chargeDur
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8819719593582307904, guid: 30e00328864670d4fa62eed4e417385e,
         type: 3}
       propertyPath: m_Name
@@ -801,12 +811,12 @@ PrefabInstance:
     - target: {fileID: 8819719593582307906, guid: 30e00328864670d4fa62eed4e417385e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.28
+      value: -17.52
       objectReference: {fileID: 0}
     - target: {fileID: 8819719593582307906, guid: 30e00328864670d4fa62eed4e417385e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.3
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 8819719593582307906, guid: 30e00328864670d4fa62eed4e417385e,
         type: 3}
@@ -898,6 +908,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Size.x
       value: 6.0048656
+      objectReference: {fileID: 0}
+    - target: {fileID: 8819719593582307911, guid: 30e00328864670d4fa62eed4e417385e,
+        type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8819719593582307911, guid: 30e00328864670d4fa62eed4e417385e,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30e00328864670d4fa62eed4e417385e, type: 3}

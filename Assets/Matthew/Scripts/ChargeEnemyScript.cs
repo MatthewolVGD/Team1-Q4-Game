@@ -21,6 +21,8 @@ public class ChargeEnemyScript : MonoBehaviour
     public float stunTime;//How long enemy is stunned
     float ogStunTime;//OG how long enemy is stunned for reset purposes
     public float followClose;//How close the enemy will get before it stops following the player
+    public float beforeChargeStopTime;//How long the enemy waits before starting their charge
+    public float chargeDur;//How long the enemy charges for
     #endregion
     // Start is called before the first frame update
     void Start()
@@ -33,6 +35,7 @@ public class ChargeEnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (Vector2.Distance(transform.position, player.transform.position) < chasePlayerDist && !charging && !stunned)//Only chase player if they're within this distance
         {
             Movement();
@@ -129,7 +132,7 @@ public class ChargeEnemyScript : MonoBehaviour
         }
         Debug.Log("Charging");
         gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(beforeChargeStopTime);
         Debug.Log("Moving");
         if (chargeDir != null)
         {
@@ -145,7 +148,7 @@ public class ChargeEnemyScript : MonoBehaviour
             }
         }
         gameObject.GetComponent<SpriteRenderer>().color = Color.red;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(chargeDur);
         charging = false;
         Debug.Log("Stop charging");
         gameObject.GetComponent<SpriteRenderer>().color = Color.white;
