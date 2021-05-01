@@ -23,6 +23,9 @@ public class ChargeEnemyScript : MonoBehaviour
     public float followClose;//How close the enemy will get before it stops following the player
     public float beforeChargeStopTime;//How long the enemy waits before starting their charge
     public float chargeDur;//How long the enemy charges for
+    public GameObject healthBar;//Health bar prefab
+    public GameObject healthBarAccess;//Access to health bar
+    public float jumpDist;//Distance away from wall that enemy will jump
     #endregion
     // Start is called before the first frame update
     void Start()
@@ -30,6 +33,10 @@ public class ChargeEnemyScript : MonoBehaviour
         ogAttackTimer = attackTimer;
         ogStunTime = stunTime;
         rb = GetComponent<Rigidbody2D>();
+        healthBarAccess = Instantiate(healthBar);
+        healthBarAccess.GetComponent<EnemyHealthBar>().maxHealth = health;
+        healthBarAccess.GetComponent<EnemyHealthBar>().currentHealth = health;
+        healthBarAccess.GetComponent<EnemyHealthBar>().attached = gameObject;
     }
 
     // Update is called once per frame
@@ -93,8 +100,8 @@ public class ChargeEnemyScript : MonoBehaviour
         Ray enemyRay = new Ray(transform.position - new Vector3(0, DistanceToTheGround, 0), Vector2.down);
         RaycastHit2D grounded = Physics2D.Raycast(transform.position - new Vector3(0, DistanceToTheGround + 0.01f, 0), Vector2.down, 0.01f);
         Debug.DrawRay(transform.position + new Vector3(0, -DistanceToTheGround, 0), Vector2.down, Color.blue);
-        RaycastHit2D wallToRight = Physics2D.Raycast(transform.position + new Vector3(DistanceToEdgeOfBox + 0.01f, 0, 0), Vector2.right, 2f, layerMask);
-        RaycastHit2D wallToLeft = Physics2D.Raycast(transform.position - new Vector3(DistanceToEdgeOfBox + 0.01f, 0, 0), -Vector2.right, 2f, layerMask);
+        RaycastHit2D wallToRight = Physics2D.Raycast(transform.position + new Vector3(DistanceToEdgeOfBox + 0.01f, 0, 0), Vector2.right, jumpDist, layerMask);
+        RaycastHit2D wallToLeft = Physics2D.Raycast(transform.position - new Vector3(DistanceToEdgeOfBox + 0.01f, 0, 0), -Vector2.right, jumpDist, layerMask);
         Debug.DrawRay(transform.position + new Vector3(DistanceToEdgeOfBox + 0.01f, 0, 0), Vector2.right, Color.blue);
         Debug.DrawRay(transform.position + new Vector3(-DistanceToEdgeOfBox - 0.01f, 0, 0), -Vector2.right, Color.blue);
         if (grounded.collider != null)
@@ -162,7 +169,8 @@ public class ChargeEnemyScript : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        dealer.gameObject.GetComponent<Player>();
+        dealer.gameObject.GetComponent<Player>().currentHealth += detAdd;
+        healthBarAccess.GetComponent<EnemyHealthBar>().currentHealth = health;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
