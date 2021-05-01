@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Level1.unity
     guid: 5009ac0e346661a49857ec53ce8cbbb2
+  - enabled: 1
+    path: Assets/Isaac/test3.unity
+    guid: 802d3746b783b6f47bea7bcf6560aee4
   m_configObjects: {}
