@@ -18,6 +18,7 @@ public class EnemyScript : MonoBehaviour
     public GameObject healthBar;//Health bar prefab
     public GameObject healthBarAccess;//Access to health bar
     public float jumpDist;//Distance away from wall that enemy will jump
+    public float followClose;//How close the enemy will get before it stops following the player
     #endregion
     // Start is called before the first frame update
     void Start()
@@ -52,17 +53,17 @@ public class EnemyScript : MonoBehaviour
     {
 
 
-        if (transform.position.x - player.position.x < -5f)//Player to right
+        if (transform.position.x - player.position.x < -followClose)//Player to right
         {
             rb.velocity = new Vector2(speed, rb.velocity.y);
             GetComponent<SpriteRenderer>().flipX = true;
         }
-        else if (transform.position.x - player.position.x > 5f)//Player to left
+        else if (transform.position.x - player.position.x > followClose)//Player to left
         {
             rb.velocity = new Vector2(-speed, rb.velocity.y);
             GetComponent<SpriteRenderer>().flipX = false;
         }
-        else if (transform.position.x - player.position.x >= -5f || transform.position.x - player.position.x <= 5f)
+        else if (transform.position.x - player.position.x >= -followClose || transform.position.x - player.position.x <= followClose)
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
