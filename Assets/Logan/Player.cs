@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -9,8 +10,8 @@ public class Player : MonoBehaviour
     public int numberOfJumps;
     private int OGJumps;
     public int damage;
-    public int maxHealth;
-    public int currentHealth;
+    public float maxHealth;
+    public float currentHealth;
     public float dashSpeed;
     private float dashTime;
     public float startDashTime;
@@ -19,6 +20,7 @@ public class Player : MonoBehaviour
     public int dashes;
     public float dashTim;
     private float OGDashTim;
+    public Image healthbar;
 
     // Start is called before the first frame update
     void Start()
@@ -59,6 +61,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        //Healthbar
+        healthbar.fillAmount = currentHealth / maxHealth;
 
         Debug.DrawRay(transform.position, gameObject.transform.right, Color.red);
         //Player flipping
