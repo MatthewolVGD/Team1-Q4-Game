@@ -409,7 +409,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grappleRope: {fileID: 1028910787}
   grappleToAll: 1
-  grappableLayerNumber: 10
+  grappableLayerNumber: 0
   m_camera: {fileID: 241889772}
   gunHolder: {fileID: 1030480144}
   gunPivot: {fileID: 226583799}
@@ -422,10 +422,10 @@ MonoBehaviour:
   maxDistnace: 20
   launchToPoint: 1
   launchType: 0
-  launchSpeed: 13
+  launchSpeed: 5
   autoConfigureDistance: 0
-  targetDistance: 3
-  targetFrequncy: 1
+  targetDistance: 20
+  targetFrequency: 20
   grapplePoint: {x: 0, y: 0}
   grappleDistanceVector: {x: 0, y: 0}
 --- !u!61 &931683314
@@ -550,7 +550,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grapplingGun: {fileID: 931683313}
   m_lineRenderer: {fileID: 1028910788}
-  percision: 40
+  precision: 40
   straightenLineSpeed: 10
   ropeAnimationCurve:
     serializedVersion: 2
@@ -565,8 +565,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.24628927
-      value: 0.6405004
+      time: 0.24714376
+      value: 0.13097513
       inSlope: 1.4742483
       outSlope: 1.4742483
       tangentMode: 0
@@ -583,8 +583,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.8105588
-      value: 0.6133096
+      time: 0.7543454
+      value: 0.37500548
       inSlope: -0.38670084
       outSlope: -0.38670084
       tangentMode: 0
@@ -630,6 +630,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   ropeProgressionSpeed: 6
   isGrappling: 1
+  straightLine: 1
 --- !u!120 &1028910788
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -861,12 +862,12 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &1030480142
 BoxCollider2D:
@@ -991,14 +992,14 @@ SpringJoint2D:
   m_GameObject: {fileID: 1030480140}
   m_Enabled: 1
   serializedVersion: 4
-  m_EnableCollision: 1
+  m_EnableCollision: 0
   m_ConnectedRigidBody: {fileID: 0}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 0
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
-  m_AutoConfigureDistance: 1
+  m_AutoConfigureDistance: 0
   m_Distance: 0.005
   m_DampingRatio: 1
   m_Frequency: 1

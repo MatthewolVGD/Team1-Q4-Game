@@ -7,7 +7,7 @@ public class GrappleRope : MonoBehaviour
     public LineRenderer m_lineRenderer;
 
     [Header("General Settings:")]
-    [SerializeField] private int percision = 40;
+    [SerializeField] private int precision = 40;
     [Range(0, 20)] [SerializeField] private float straightenLineSpeed = 5;
 
     [Header("Rope Animation Settings:")]
@@ -21,16 +21,16 @@ public class GrappleRope : MonoBehaviour
 
     float moveTime = 0;
 
-    [HideInInspector] public bool isGrappling = true;
+    public bool isGrappling = true;
 
-    bool strightLine = true;
+    public bool straightLine = true;
 
     private void OnEnable()
     {
         moveTime = 0;
-        m_lineRenderer.positionCount = percision;
+        m_lineRenderer.positionCount = precision;
         waveSize = StartWaveSize;
-        strightLine = false;
+        straightLine = false;
 
         LinePointsToFirePoint();
 
@@ -45,7 +45,7 @@ public class GrappleRope : MonoBehaviour
 
     private void LinePointsToFirePoint()
     {
-        for (int i = 0; i < percision; i++)
+        for (int i = 0; i < precision; i++)
         {
             m_lineRenderer.SetPosition(i, grapplingGun.firePoint.position);
         }
@@ -59,11 +59,11 @@ public class GrappleRope : MonoBehaviour
 
     void DrawRope()
     {
-        if (!strightLine)
+        if (!straightLine)
         {
-            if (m_lineRenderer.GetPosition(percision - 1).x == grapplingGun.grapplePoint.x)
+            if (m_lineRenderer.GetPosition(precision - 1).x == grapplingGun.grapplePoint.x)
             {
-                strightLine = true;
+                straightLine = true;
             }
             else
             {
@@ -95,9 +95,9 @@ public class GrappleRope : MonoBehaviour
 
     void DrawRopeWaves()
     {
-        for (int i = 0; i < percision; i++)
+        for (int i = 0; i < precision; i++)
         {
-            float delta = (float)i / ((float)percision - 1f);
+            float delta = (float)i / ((float)precision - 1f);
             Vector2 offset = Vector2.Perpendicular(grapplingGun.grappleDistanceVector).normalized * ropeAnimationCurve.Evaluate(delta) * waveSize;
             Vector2 targetPosition = Vector2.Lerp(grapplingGun.firePoint.position, grapplingGun.grapplePoint, delta) + offset;
             Vector2 currentPosition = Vector2.Lerp(grapplingGun.firePoint.position, targetPosition, ropeProgressionCurve.Evaluate(moveTime) * ropeProgressionSpeed);

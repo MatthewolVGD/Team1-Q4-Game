@@ -43,7 +43,7 @@ public class GrappleGun : MonoBehaviour
     [Header("No Launch To Point")]
     [SerializeField] private bool autoConfigureDistance = false;
     [SerializeField] private float targetDistance = 3;
-    [SerializeField] private float targetFrequncy = 1;
+    [SerializeField] private float targetFrequency = 1;
 
     [HideInInspector] public Vector2 grapplePoint;
     [HideInInspector] public Vector2 grappleDistanceVector;
@@ -116,7 +116,10 @@ public class GrappleGun : MonoBehaviour
         Vector2 distanceVector = m_camera.ScreenToWorldPoint(Input.mousePosition) - gunPivot.position;
         if (Physics2D.Raycast(firePoint.position, distanceVector.normalized))
         {
-            RaycastHit2D _hit = Physics2D.Raycast(firePoint.position, distanceVector.normalized);
+            int layerMask = 1 << 9;
+            layerMask = ~layerMask;
+
+            RaycastHit2D _hit = Physics2D.Raycast(firePoint.position, distanceVector.normalized, Mathf.Infinity, layerMask);
             if (_hit.transform.gameObject.layer == grappableLayerNumber || grappleToAll)
             {
                 if (Vector2.Distance(_hit.point, firePoint.position) <= maxDistnace || !hasMaxDistance)
@@ -135,7 +138,7 @@ public class GrappleGun : MonoBehaviour
         if (!launchToPoint && !autoConfigureDistance)
         {
             m_springJoint2D.distance = targetDistance;
-            m_springJoint2D.frequency = targetFrequncy;
+            m_springJoint2D.frequency = targetFrequency;
         }
         if (!launchToPoint)
         {
@@ -148,24 +151,23 @@ public class GrappleGun : MonoBehaviour
             m_springJoint2D.connectedAnchor = grapplePoint;
             m_springJoint2D.enabled = true;
         }
-        else
+        switch (launchType)
         {
-            switch (launchType)
-            {
-                case LaunchType.Physics_Launch:
-                    m_springJoint2D.connectedAnchor = grapplePoint;
+            case LaunchType.Physics_Launch:
+                m_springJoint2D.connectedAnchor = grapplePoint;
 
-                    Vector2 distanceVector = firePoint.position - gunHolder.position;
+                Vector2 distanceVector = firePoint.position - gunHolder.position;
 
-                    m_springJoint2D.distance = distanceVector.magnitude;
-                    m_springJoint2D.frequency = launchSpeed;
-                    m_springJoint2D.enabled = true;
-                    break;
-                case LaunchType.Transform_Launch:
-                    m_rigidbody.gravityScale = 0;
-                    m_rigidbody.velocity = Vector2.zero;
-                    break;
-            }
+                m_springJoint2D.distance = distanceVector.magnitude;
+                m_springJoint2D.frequency = launchSpeed;
+                m_springJoint2D.enabled = true;
+                Debug.Log("2");
+                break;
+            case LaunchType.Transform_Launch:
+                m_rigidbody.gravityScale = 0;
+                m_rigidbody.velocity = Vector2.zero;
+                Debug.Log("1");
+                break;
         }
     }
 
