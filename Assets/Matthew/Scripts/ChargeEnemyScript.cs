@@ -31,6 +31,7 @@ public class ChargeEnemyScript : MonoBehaviour
     public float headbuttDistance;
     public int headbuttDamage;
     public GameObject hitbox;
+    public bool canCharge;
     #endregion
     // Start is called before the first frame update
     void Start()
@@ -46,6 +47,7 @@ public class ChargeEnemyScript : MonoBehaviour
         ogHeadbuttTimer = headbuttTimer;
 
         GameObject chargeHitbox = Instantiate(hitbox, transform.position, transform.rotation, gameObject.transform);
+        chargeHitbox.GetComponent<Hitbox>().attackType = "Charge";
         chargeHitbox.GetComponent<Hitbox>().attached = gameObject;
     }
 
