@@ -21,7 +21,7 @@ public class Hitbox : MonoBehaviour
             if (purpose == "Grounded")
             {
                 transform.localScale = new Vector3(attached.transform.localScale.x, 0.01f, 1f);
-                transform.position = new Vector3(attached.transform.position.x, attached.transform)
+                //transform.position = new Vector3(attached.transform.position.x, attached.transform);
             }
             else if (purpose == "Charge")
             {

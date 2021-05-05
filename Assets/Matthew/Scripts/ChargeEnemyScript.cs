@@ -45,10 +45,11 @@ public class ChargeEnemyScript : MonoBehaviour
         healthBarAccess.GetComponent<EnemyHealthBar>().attached = gameObject;
 
         ogHeadbuttTimer = headbuttTimer;
-
+        /*
         GameObject chargeHitbox = Instantiate(hitbox, transform.position, transform.rotation, gameObject.transform);
         chargeHitbox.GetComponent<Hitbox>().purpose = "Charge";
         chargeHitbox.GetComponent<Hitbox>().attached = gameObject;
+        */
     }
 
     // Update is called once per frame
