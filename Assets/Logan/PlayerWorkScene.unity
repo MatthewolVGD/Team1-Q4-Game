@@ -421,8 +421,8 @@ MonoBehaviour:
   hasMaxDistance: 0
   maxDistnace: 20
   launchToPoint: 1
-  launchType: 0
-  launchSpeed: 5
+  launchType: 1
+  launchSpeed: -0.5
   autoConfigureDistance: 0
   targetDistance: 20
   targetFrequency: 20
@@ -883,7 +883,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.04564011}
+  m_Offset: {x: 0, y: 0.003774941}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.7325447, y: 0.5245108}
@@ -894,7 +894,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 2.0497248}
+  m_Size: {x: 1, y: 1.9508966}
   m_EdgeRadius: 0
 --- !u!212 &1030480143
 SpriteRenderer:
@@ -937,7 +937,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: -7985599412066639820, guid: ac3ee0ace1e37a940a1027e2364fba62,
     type: 3}
-  m_Color: {r: 0.5, g: 0.49292454, b: 0.49292454, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

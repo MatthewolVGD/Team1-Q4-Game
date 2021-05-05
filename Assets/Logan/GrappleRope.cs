@@ -30,7 +30,6 @@ public class GrappleRope : MonoBehaviour
         moveTime = 0;
         m_lineRenderer.positionCount = precision;
         waveSize = StartWaveSize;
-        straightLine = false;
 
         LinePointsToFirePoint();
 
@@ -41,7 +40,7 @@ public class GrappleRope : MonoBehaviour
     {
         m_lineRenderer.enabled = false;
         isGrappling = false;
-    }
+   }
 
     private void LinePointsToFirePoint()
     {

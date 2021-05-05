@@ -86,10 +86,11 @@ public class Player : MonoBehaviour
         }
 
         float DistanceToTheGround = GetComponent<BoxCollider2D>().bounds.extents.y;
-        RaycastHit2D grounded = Physics2D.Raycast(transform.position - new Vector3(0, DistanceToTheGround + 0.01f, 0), Vector2.down, 0.01f);
-
+        RaycastHit2D grounded = Physics2D.Raycast(transform.position - new Vector3(0, DistanceToTheGround + 0.03f, 0), Vector2.down, 0.01f);
+        Debug.DrawRay(transform.position - new Vector3(0, DistanceToTheGround + 0.03f, 0), Vector2.down, Color.blue);
         if (grounded.collider != null)
         {
+            Debug.Log(grounded.collider.gameObject.name);
             if (grounded.collider.gameObject.tag == "Terrain")
             {
                 numberOfJumps = OGJumps;
