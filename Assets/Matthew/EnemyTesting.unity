@@ -406,6 +406,7 @@ MonoBehaviour:
   dashes: 0
   dashTim: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 --- !u!1001 &511432368
 PrefabInstance:
@@ -522,6 +523,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30e00328864670d4fa62eed4e417385e, type: 3}
+>>>>>>> Matthew_Enemy_Work
+=======
 >>>>>>> Matthew_Enemy_Work
 --- !u!1 &519420028
 GameObject:
@@ -955,23 +958,32 @@ Transform:
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1001 &1600649227
+=======
+--- !u!1001 &1864903677
+>>>>>>> Matthew_Enemy_Work
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+<<<<<<< HEAD
     - target: {fileID: 8819719592561075508, guid: 30e00328864670d4fa62eed4e417385e,
         type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 294595250}
     - target: {fileID: 8819719593582307904, guid: 30e00328864670d4fa62eed4e417385e,
+=======
+    - target: {fileID: 5321452001407060508, guid: 22fddae2d8f90aa44bddec9b3b0d127b,
+>>>>>>> Matthew_Enemy_Work
         type: 3}
       propertyPath: m_Name
       value: Charger
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     - target: {fileID: 8819719593582307906, guid: 30e00328864670d4fa62eed4e417385e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -983,50 +995,96 @@ PrefabInstance:
       value: 1.5115576
       objectReference: {fileID: 0}
     - target: {fileID: 8819719593582307906, guid: 30e00328864670d4fa62eed4e417385e,
+=======
+    - target: {fileID: 5321452001407060510, guid: 22fddae2d8f90aa44bddec9b3b0d127b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -22.16784
+      objectReference: {fileID: 0}
+    - target: {fileID: 5321452001407060510, guid: 22fddae2d8f90aa44bddec9b3b0d127b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.371861
+      objectReference: {fileID: 0}
+    - target: {fileID: 5321452001407060510, guid: 22fddae2d8f90aa44bddec9b3b0d127b,
+>>>>>>> Matthew_Enemy_Work
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     - target: {fileID: 8819719593582307906, guid: 30e00328864670d4fa62eed4e417385e,
+=======
+    - target: {fileID: 5321452001407060510, guid: 22fddae2d8f90aa44bddec9b3b0d127b,
+>>>>>>> Matthew_Enemy_Work
         type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     - target: {fileID: 8819719593582307906, guid: 30e00328864670d4fa62eed4e417385e,
+=======
+    - target: {fileID: 5321452001407060510, guid: 22fddae2d8f90aa44bddec9b3b0d127b,
+>>>>>>> Matthew_Enemy_Work
         type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     - target: {fileID: 8819719593582307906, guid: 30e00328864670d4fa62eed4e417385e,
+=======
+    - target: {fileID: 5321452001407060510, guid: 22fddae2d8f90aa44bddec9b3b0d127b,
+>>>>>>> Matthew_Enemy_Work
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     - target: {fileID: 8819719593582307906, guid: 30e00328864670d4fa62eed4e417385e,
+=======
+    - target: {fileID: 5321452001407060510, guid: 22fddae2d8f90aa44bddec9b3b0d127b,
+>>>>>>> Matthew_Enemy_Work
         type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     - target: {fileID: 8819719593582307906, guid: 30e00328864670d4fa62eed4e417385e,
+=======
+    - target: {fileID: 5321452001407060510, guid: 22fddae2d8f90aa44bddec9b3b0d127b,
+>>>>>>> Matthew_Enemy_Work
         type: 3}
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     - target: {fileID: 8819719593582307906, guid: 30e00328864670d4fa62eed4e417385e,
+=======
+    - target: {fileID: 5321452001407060510, guid: 22fddae2d8f90aa44bddec9b3b0d127b,
+>>>>>>> Matthew_Enemy_Work
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     - target: {fileID: 8819719593582307906, guid: 30e00328864670d4fa62eed4e417385e,
+=======
+    - target: {fileID: 5321452001407060510, guid: 22fddae2d8f90aa44bddec9b3b0d127b,
+>>>>>>> Matthew_Enemy_Work
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     - target: {fileID: 8819719593582307906, guid: 30e00328864670d4fa62eed4e417385e,
+=======
+    - target: {fileID: 5321452001407060510, guid: 22fddae2d8f90aa44bddec9b3b0d127b,
+>>>>>>> Matthew_Enemy_Work
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30e00328864670d4fa62eed4e417385e, type: 3}
 --- !u!1001 &1986894437
@@ -1037,10 +1095,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 8819719592561075508, guid: 30e00328864670d4fa62eed4e417385e,
+=======
+    - target: {fileID: 5321452002562639208, guid: 22fddae2d8f90aa44bddec9b3b0d127b,
+>>>>>>> Matthew_Enemy_Work
         type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 294595250}
+<<<<<<< HEAD
     - target: {fileID: 8819719592561075508, guid: 30e00328864670d4fa62eed4e417385e,
         type: 3}
       propertyPath: jumpStrength
@@ -1195,4 +1257,14 @@ PrefabInstance:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30e00328864670d4fa62eed4e417385e, type: 3}
 =======
+>>>>>>> Matthew_Enemy_Work
+=======
+    - target: {fileID: 5321452002562639208, guid: 22fddae2d8f90aa44bddec9b3b0d127b,
+        type: 3}
+      propertyPath: hitbox
+      value: 
+      objectReference: {fileID: 1155152977146943131, guid: b38423ac4a8f05b4a9ad0a1ffebb0303,
+        type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 22fddae2d8f90aa44bddec9b3b0d127b, type: 3}
 >>>>>>> Matthew_Enemy_Work
