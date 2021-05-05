@@ -47,7 +47,7 @@ public class ChargeEnemyScript : MonoBehaviour
         ogHeadbuttTimer = headbuttTimer;
 
         GameObject chargeHitbox = Instantiate(hitbox, transform.position, transform.rotation, gameObject.transform);
-        chargeHitbox.GetComponent<Hitbox>().attackType = "Charge";
+        chargeHitbox.GetComponent<Hitbox>().purpose = "Charge";
         chargeHitbox.GetComponent<Hitbox>().attached = gameObject;
     }
 
