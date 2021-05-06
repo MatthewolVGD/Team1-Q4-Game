@@ -407,6 +407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4bba80155255764eaf70d0166408178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grappleTimer: 5
   grappleRope: {fileID: 1028910787}
   grappleToAll: 1
   grappableLayerNumber: 0
@@ -494,7 +495,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b7a065c5a2d55414ba679f7ba726a84e, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.5471698, g: 0.5471698, b: 0.5471698, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -886,8 +887,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0.003774941}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.7325447, y: 0.5245108}
-    oldSize: {x: 1.8, y: 2.07}
+    pivot: {x: 0.71995825, y: 0.43550393}
+    oldSize: {x: 1.73, y: 2.36}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -935,9 +936,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -7985599412066639820, guid: ac3ee0ace1e37a940a1027e2364fba62,
+  m_Sprite: {fileID: 1570160870810385868, guid: afdf7594a88d50344a1a5903896f9edf,
     type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
