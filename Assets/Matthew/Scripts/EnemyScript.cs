@@ -15,12 +15,20 @@ public class EnemyScript : MonoBehaviour
     Rigidbody2D rb;//Enemy's rigidbody
     public float chasePlayerDist;//How close the player has to be to chase them
     public int detAdd;//Amount of determination added to player after this enemy dies
+    public GameObject healthBar;//Health bar prefab
+    public GameObject healthBarAccess;//Access to health bar
+    public float jumpDist;//Distance away from wall that enemy will jump
+    public float followClose;//How close the enemy will get before it stops following the player
     #endregion
     // Start is called before the first frame update
     void Start()
     {
         ogAttackTimer = attackTimer;
         rb = GetComponent<Rigidbody2D>();
+        healthBarAccess = Instantiate(healthBar);
+        healthBarAccess.GetComponent<EnemyHealthBar>().maxHealth = health;
+        healthBarAccess.GetComponent<EnemyHealthBar>().currentHealth = health;
+        healthBarAccess.GetComponent<EnemyHealthBar>().attached = gameObject;
     }
 
     // Update is called once per frame
@@ -45,17 +53,17 @@ public class EnemyScript : MonoBehaviour
     {
 
 
-        if (transform.position.x - player.position.x < -5f)//Player to right
+        if (transform.position.x - player.position.x < -followClose)//Player to right
         {
             rb.velocity = new Vector2(speed, rb.velocity.y);
             GetComponent<SpriteRenderer>().flipX = true;
         }
-        else if (transform.position.x - player.position.x > 5f)//Player to left
+        else if (transform.position.x - player.position.x > followClose)//Player to left
         {
             rb.velocity = new Vector2(-speed, rb.velocity.y);
             GetComponent<SpriteRenderer>().flipX = false;
         }
-        else if (transform.position.x - player.position.x >= -5f || transform.position.x - player.position.x <= 5f)
+        else if (transform.position.x - player.position.x >= -followClose || transform.position.x - player.position.x <= followClose)
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
@@ -69,8 +77,8 @@ public class EnemyScript : MonoBehaviour
         float DistanceToEdgeOfBox = GetComponent<BoxCollider2D>().bounds.extents.x;
         RaycastHit2D grounded = Physics2D.Raycast(transform.position - new Vector3(0, DistanceToTheGround + 0.02f, 0), Vector2.down, 0.01f);
         Debug.DrawRay(transform.position + new Vector3(0, -DistanceToTheGround - 0.02f, 0), Vector2.down, Color.blue);
-        RaycastHit2D wallToRight = Physics2D.Raycast(transform.position + new Vector3(DistanceToEdgeOfBox + 0.01f, 0, 0), Vector2.right, 2f, layerMask);
-        RaycastHit2D wallToLeft = Physics2D.Raycast(transform.position - new Vector3(DistanceToEdgeOfBox + 0.01f, 0, 0), -Vector2.right, 2f, layerMask);
+        RaycastHit2D wallToRight = Physics2D.Raycast(transform.position + new Vector3(DistanceToEdgeOfBox + 0.01f, 0, 0), Vector2.right, jumpDist, layerMask);
+        RaycastHit2D wallToLeft = Physics2D.Raycast(transform.position - new Vector3(DistanceToEdgeOfBox + 0.01f, 0, 0), -Vector2.right, jumpDist, layerMask);
         Debug.DrawRay(transform.position + new Vector3(DistanceToEdgeOfBox + 0.01f, 0, 0), Vector2.right, Color.blue);
         Debug.DrawRay(transform.position + new Vector3(-DistanceToEdgeOfBox - 0.01f, 0, 0), -Vector2.right, Color.blue);
         if (grounded.collider != null)
@@ -107,7 +115,8 @@ public class EnemyScript : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        dealer.gameObject.GetComponent<Player>();
+        dealer.gameObject.GetComponent<Player>().currentHealth += detAdd;
+        healthBarAccess.GetComponent<EnemyHealthBar>().currentHealth = health;
     }
 
 }

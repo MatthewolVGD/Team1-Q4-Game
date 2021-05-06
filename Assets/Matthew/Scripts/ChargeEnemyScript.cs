@@ -26,6 +26,12 @@ public class ChargeEnemyScript : MonoBehaviour
     public GameObject healthBar;//Health bar prefab
     public GameObject healthBarAccess;//Access to health bar
     public float jumpDist;//Distance away from wall that enemy will jump
+    public float headbuttTimer;
+    float ogHeadbuttTimer;
+    public float headbuttDistance;
+    public int headbuttDamage;
+    public GameObject hitbox;
+    public bool canCharge;
     #endregion
     // Start is called before the first frame update
     void Start()
@@ -37,6 +43,13 @@ public class ChargeEnemyScript : MonoBehaviour
         healthBarAccess.GetComponent<EnemyHealthBar>().maxHealth = health;
         healthBarAccess.GetComponent<EnemyHealthBar>().currentHealth = health;
         healthBarAccess.GetComponent<EnemyHealthBar>().attached = gameObject;
+
+        ogHeadbuttTimer = headbuttTimer;
+        /*
+        GameObject chargeHitbox = Instantiate(hitbox, transform.position, transform.rotation, gameObject.transform);
+        chargeHitbox.GetComponent<Hitbox>().purpose = "Charge";
+        chargeHitbox.GetComponent<Hitbox>().attached = gameObject;
+        */
     }
 
     // Update is called once per frame
@@ -52,6 +65,12 @@ public class ChargeEnemyScript : MonoBehaviour
         {
             StartCoroutine(ChargeAttack());
             attackTimer = ogAttackTimer;
+        }
+
+        if (Mathf.Abs(transform.position.x - player.transform.position.x) <= headbuttDistance && headbuttTimer <= 0f && !stunned && !charging)
+        {
+            Headbutt();
+            headbuttTimer = ogHeadbuttTimer;
         }
 
         if (!stunned && !charging)
@@ -183,5 +202,10 @@ public class ChargeEnemyScript : MonoBehaviour
         {
             stunned = true;
         }
+    }
+
+    void Headbutt()
+    {
+        player.gameObject.GetComponent<Player>().Damage(headbuttDamage);
     }
 }
