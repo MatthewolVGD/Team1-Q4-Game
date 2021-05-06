@@ -40,6 +40,7 @@ public class GrappleRope : MonoBehaviour
     {
         m_lineRenderer.enabled = false;
         isGrappling = false;
+
    }
 
     private void LinePointsToFirePoint()
