@@ -4,6 +4,7 @@ using UnityEngine;
 public class ChargeEnemyScript : MonoBehaviour
 {
     #region MainVariables
+    [Header("Movement")]
     public float speed;//Enemy Speed
     public int health;//Enemy Health
     public float jumpStrength;//Enemy Jump Velocity
@@ -30,8 +31,8 @@ public class ChargeEnemyScript : MonoBehaviour
     float ogHeadbuttTimer;
     public float headbuttDistance;
     public int headbuttDamage;
-    public GameObject hitbox;
-    public bool canCharge;
+    public Transform headbuttArea;
+    public LayerMask playerLayer;
     #endregion
     // Start is called before the first frame update
     void Start()
@@ -45,11 +46,7 @@ public class ChargeEnemyScript : MonoBehaviour
         healthBarAccess.GetComponent<EnemyHealthBar>().attached = gameObject;
 
         ogHeadbuttTimer = headbuttTimer;
-        /*
-        GameObject chargeHitbox = Instantiate(hitbox, transform.position, transform.rotation, gameObject.transform);
-        chargeHitbox.GetComponent<Hitbox>().purpose = "Charge";
-        chargeHitbox.GetComponent<Hitbox>().attached = gameObject;
-        */
+
     }
 
     // Update is called once per frame
@@ -61,18 +58,31 @@ public class ChargeEnemyScript : MonoBehaviour
             Movement();
         }
         
-        if (Mathf.Abs(transform.position.x - player.transform.position.x) <= chargerAtkDist && attackTimer <= 0f && !stunned)//Only attack player if they're within this distance, charger
+        if(Physics2D.OverlapBoxAll(gameObject.transform.position, new Vector2(2f * chargerAtkDist, 2f * gameObject.transform.localScale.y), playerLayer ) != null)
         {
-            StartCoroutine(ChargeAttack());
-            attackTimer = ogAttackTimer;
+            if (attackTimer <= 0f && !stunned)
+            {
+                StartCoroutine(ChargeAttack());
+                attackTimer = ogAttackTimer;
+            }
+        }
+        if(Physics2D.OverlapCircleAll(headbuttArea.position, headbuttDistance, playerLayer) != null)
+        {
+            if (headbuttTimer <= 0f && !stunned && !charging)
+            {
+                Headbutt();
+                headbuttTimer = ogHeadbuttTimer;
+            }
         }
 
-        if (Mathf.Abs(transform.position.x - player.transform.position.x) <= headbuttDistance && headbuttTimer <= 0f && !stunned && !charging)
+        if(gameObject.GetComponent<SpriteRenderer>().flipX == true)
         {
-            Headbutt();
-            headbuttTimer = ogHeadbuttTimer;
+            headbuttArea.position = new Vector3(transform.position.x + (0.5f * gameObject.GetComponent<BoxCollider2D>().bounds.extents.x) + 2f, transform.position.y, headbuttArea.transform.position.z);
         }
-
+        else if(gameObject.GetComponent<SpriteRenderer>().flipX == false)
+        {
+            headbuttArea.position = new Vector3(transform.position.x - (0.5f * gameObject.GetComponent<BoxCollider2D>().bounds.extents.x) - 2f, transform.position.y, headbuttArea.transform.position.z);
+        }
         if (!stunned && !charging)
         {
             attackTimer -= Time.deltaTime;
@@ -207,5 +217,11 @@ public class ChargeEnemyScript : MonoBehaviour
     void Headbutt()
     {
         player.gameObject.GetComponent<Player>().Damage(headbuttDamage);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireCube(transform.position, new Vector3(2f * chargerAtkDist, 2f * gameObject.transform.localScale.y, 1));
+        Gizmos.DrawWireSphere(headbuttArea.position, headbuttDistance);
     }
 }
