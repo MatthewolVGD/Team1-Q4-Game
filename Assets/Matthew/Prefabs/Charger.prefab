@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5321452001407060508
+--- !u!1 &899712012980172441
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,11 +8,11 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5321452001407060510}
-  - component: {fileID: 5321452001407060511}
-  - component: {fileID: 5321452001407060506}
-  - component: {fileID: 5321452001407060507}
-  - component: {fileID: 5321452002562639208}
+  - component: {fileID: 899712012980172443}
+  - component: {fileID: 899712012980172442}
+  - component: {fileID: 899712012980172447}
+  - component: {fileID: 899712012980172446}
+  - component: {fileID: 899712014005631469}
   m_Layer: 8
   m_Name: Charger 1
   m_TagString: Untagged
@@ -20,27 +20,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5321452001407060510
+--- !u!4 &899712012980172443
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5321452001407060508}
+  m_GameObject: {fileID: 899712012980172441}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -24.057146, y: 1.3751588, z: 0}
+  m_LocalPosition: {x: -12.39, y: 1.47, z: 0}
   m_LocalScale: {x: 2.61, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &5321452001407060511
+--- !u!212 &899712012980172442
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5321452001407060508}
+  m_GameObject: {fileID: 899712012980172441}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -84,13 +84,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &5321452001407060506
+--- !u!61 &899712012980172447
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5321452001407060508}
+  m_GameObject: {fileID: 899712012980172441}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 6200000, guid: e3d6edc8ae8c1534ba7d921fa90d0f70, type: 2}
@@ -110,14 +110,14 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.6179056, y: 2.0027285}
   m_EdgeRadius: 0
---- !u!50 &5321452001407060507
+--- !u!50 &899712012980172446
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5321452001407060508}
+  m_GameObject: {fileID: 899712012980172441}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -131,13 +131,13 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &5321452002562639208
+--- !u!114 &899712014005631469
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5321452001407060508}
+  m_GameObject: {fileID: 899712012980172441}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e7c788f843b43be498952445dcef13c1, type: 3}
@@ -151,7 +151,7 @@ MonoBehaviour:
   player: {fileID: 0}
   chasePlayerDist: 50
   detAdd: 1
-  chargerAtkDist: 12
+  chargerAtkDist: 20
   chargeSpeed: 20
   charging: 0
   stunTime: 4
@@ -162,3 +162,10 @@ MonoBehaviour:
     type: 3}
   healthBarAccess: {fileID: 0}
   jumpDist: 3
+  headbuttTimer: 5
+  headbuttDistance: 2
+  headbuttDamage: 1
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  headbuttOffset: 3

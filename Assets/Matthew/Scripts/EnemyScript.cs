@@ -19,6 +19,9 @@ public class EnemyScript : MonoBehaviour
     public GameObject healthBarAccess;//Access to health bar
     public float jumpDist;//Distance away from wall that enemy will jump
     public float followClose;//How close the enemy will get before it stops following the player
+    Vector3 attackPos;
+    public LayerMask playerLayer;
+    public float attackOffset;
     #endregion
     // Start is called before the first frame update
     void Start()
@@ -29,6 +32,8 @@ public class EnemyScript : MonoBehaviour
         healthBarAccess.GetComponent<EnemyHealthBar>().maxHealth = health;
         healthBarAccess.GetComponent<EnemyHealthBar>().currentHealth = health;
         healthBarAccess.GetComponent<EnemyHealthBar>().attached = gameObject;
+
+        attackPos = transform.position + new Vector3(attackOffset, 0, 0);
     }
 
     // Update is called once per frame
@@ -40,13 +45,22 @@ public class EnemyScript : MonoBehaviour
         }
 
         attackTimer -= Time.deltaTime;
+
+        if (Physics2D.OverlapCircleAll(attackPos, attackDist, playerLayer) != null)
         if (Vector2.Distance(transform.position, player.transform.position) <= attackDist && attackTimer <= 0f)//Only attack player if they're within this distance, skeleton
         {
             Attack();
             attackTimer = ogAttackTimer;
         }
 
-
+        if (gameObject.GetComponent<SpriteRenderer>().flipX == true)
+        {
+            attackPos = transform.position + new Vector3(attackOffset, 0, 0);
+        }
+        else if (gameObject.GetComponent<SpriteRenderer>().flipX == false)
+        {
+            attackPos = transform.position - new Vector3(attackOffset, 0, 0);
+        }
     }
 
     void Movement()//Handles all enemy movement
@@ -118,5 +132,9 @@ public class EnemyScript : MonoBehaviour
         dealer.gameObject.GetComponent<Player>().currentHealth += detAdd;
         healthBarAccess.GetComponent<EnemyHealthBar>().currentHealth = health;
     }
-
+    private void OnDrawGizmosSelected()
+    {
+      
+        Gizmos.DrawWireSphere(attackPos, attackDist);
+    }
 }
