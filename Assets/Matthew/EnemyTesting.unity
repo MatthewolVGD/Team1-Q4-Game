@@ -883,6 +883,11 @@ PrefabInstance:
       propertyPath: headbuttDistance
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5321452002562639208, guid: 22fddae2d8f90aa44bddec9b3b0d127b,
+        type: 3}
+      propertyPath: headbuttOffset
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22fddae2d8f90aa44bddec9b3b0d127b, type: 3}
 --- !u!1001 &1945398442
@@ -900,12 +905,12 @@ PrefabInstance:
     - target: {fileID: 7976426406276643647, guid: 80b8205cf106c7a429ab7dfaca63c405,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.39
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7976426406276643647, guid: 80b8205cf106c7a429ab7dfaca63c405,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.03
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7976426406276643647, guid: 80b8205cf106c7a429ab7dfaca63c405,
         type: 3}

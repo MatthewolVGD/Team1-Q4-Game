@@ -31,8 +31,9 @@ public class ChargeEnemyScript : MonoBehaviour
     float ogHeadbuttTimer;
     public float headbuttDistance;
     public int headbuttDamage;
-    public Transform headbuttArea;
+    Vector3 headbuttPos;
     public LayerMask playerLayer;
+    public float headbuttOffset;
     #endregion
     // Start is called before the first frame update
     void Start()
@@ -46,7 +47,7 @@ public class ChargeEnemyScript : MonoBehaviour
         healthBarAccess.GetComponent<EnemyHealthBar>().attached = gameObject;
 
         ogHeadbuttTimer = headbuttTimer;
-
+        headbuttPos = transform.position + new Vector3(headbuttOffset, 0, 0);
     }
 
     // Update is called once per frame
@@ -66,7 +67,7 @@ public class ChargeEnemyScript : MonoBehaviour
                 attackTimer = ogAttackTimer;
             }
         }
-        if(Physics2D.OverlapCircleAll(headbuttArea.position, headbuttDistance, playerLayer) != null)
+        if(Physics2D.OverlapCircleAll(headbuttPos, headbuttDistance, playerLayer) != null)
         {
             if (headbuttTimer <= 0f && !stunned && !charging)
             {
@@ -77,11 +78,11 @@ public class ChargeEnemyScript : MonoBehaviour
 
         if(gameObject.GetComponent<SpriteRenderer>().flipX == true)
         {
-            headbuttArea.position = new Vector3(transform.position.x + (0.5f * gameObject.GetComponent<BoxCollider2D>().bounds.extents.x) + 2f, transform.position.y, headbuttArea.transform.position.z);
+            headbuttPos = transform.position + new Vector3(headbuttOffset, 0, 0);
         }
         else if(gameObject.GetComponent<SpriteRenderer>().flipX == false)
         {
-            headbuttArea.position = new Vector3(transform.position.x - (0.5f * gameObject.GetComponent<BoxCollider2D>().bounds.extents.x) - 2f, transform.position.y, headbuttArea.transform.position.z);
+            headbuttPos = transform.position - new Vector3(headbuttOffset, 0, 0);
         }
         if (!stunned && !charging)
         {
@@ -222,6 +223,6 @@ public class ChargeEnemyScript : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireCube(transform.position, new Vector3(2f * chargerAtkDist, 2f * gameObject.transform.localScale.y, 1));
-        Gizmos.DrawWireSphere(headbuttArea.position, headbuttDistance);
+        Gizmos.DrawWireSphere(headbuttPos, headbuttDistance);
     }
 }
