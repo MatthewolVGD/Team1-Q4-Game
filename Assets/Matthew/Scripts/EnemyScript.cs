@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using System.Collections;
 public class EnemyScript : MonoBehaviour
 {
 
@@ -22,6 +22,8 @@ public class EnemyScript : MonoBehaviour
     Vector3 attackPos;
     public LayerMask playerLayer;
     public float attackOffset;
+    public ParticleSystem hitParticles;
+    public float particleActiveTime;
     #endregion
     // Start is called before the first frame update
     void Start()
@@ -34,6 +36,8 @@ public class EnemyScript : MonoBehaviour
         healthBarAccess.GetComponent<EnemyHealthBar>().attached = gameObject;
 
         attackPos = transform.position + new Vector3(attackOffset, 0, 0);
+        hitParticles.Stop();
+        hitParticles.enableEmission = true;
     }
 
     // Update is called once per frame
@@ -60,6 +64,11 @@ public class EnemyScript : MonoBehaviour
         else if (gameObject.GetComponent<SpriteRenderer>().flipX == false)
         {
             attackPos = transform.position - new Vector3(attackOffset, 0, 0);
+        }
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            Damage(1, player.gameObject);
         }
     }
 
@@ -128,13 +137,24 @@ public class EnemyScript : MonoBehaviour
         if (health <= 0)
         {
             Destroy(gameObject);
+            dealer.gameObject.GetComponent<Player>().currentHealth += detAdd;
         }
-        dealer.gameObject.GetComponent<Player>().currentHealth += detAdd;
+        
         healthBarAccess.GetComponent<EnemyHealthBar>().currentHealth = health;
+        Debug.Log("Here");
+        StartCoroutine(Particles());
     }
     private void OnDrawGizmosSelected()
     {
       
         Gizmos.DrawWireSphere(attackPos, attackDist);
+    }
+
+    IEnumerator Particles()
+    {
+        Debug.Log("Trying");
+        hitParticles.Play();
+        yield return new WaitForSeconds(particleActiveTime);
+        hitParticles.Stop();
     }
 }
