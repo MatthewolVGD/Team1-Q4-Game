@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     public float dashTim;
     private float OGDashTim;
     public Image healthbar;
+    public float fallMultiplier = 2.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -61,6 +62,12 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        //Better Jumping
+        if (rb2.velocity.y < 0)
+        {
+            rb2.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+        }
+
         //Healthbar
         healthbar.fillAmount = currentHealth / maxHealth;
 
@@ -186,5 +193,10 @@ public class Player : MonoBehaviour
             }
         }
 
+    }
+
+    void Awake()
+    {
+        rb2 = GetComponent<Rigidbody2D>();
     }
 }
