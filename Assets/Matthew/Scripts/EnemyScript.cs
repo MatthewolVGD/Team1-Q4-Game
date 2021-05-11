@@ -22,7 +22,7 @@ public class EnemyScript : MonoBehaviour
     Vector3 attackPos;
     public LayerMask playerLayer;
     public float attackOffset;
-    public ParticleSystem hitParticles;
+    ParticleSystem hitParticles;
     public float particleActiveTime;
     #endregion
     // Start is called before the first frame update
@@ -36,6 +36,7 @@ public class EnemyScript : MonoBehaviour
         healthBarAccess.GetComponent<EnemyHealthBar>().attached = gameObject;
 
         attackPos = transform.position + new Vector3(attackOffset, 0, 0);
+        hitParticles = GetComponent<ParticleSystem>();
         hitParticles.Stop();
         hitParticles.enableEmission = true;
     }
