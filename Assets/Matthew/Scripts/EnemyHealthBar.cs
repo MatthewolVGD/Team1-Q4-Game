@@ -18,6 +18,6 @@ public class EnemyHealthBar : MonoBehaviour
     void Update()
     {
         transform.position = new Vector3(attached.GetComponent<Transform>().position.x, (attached.GetComponent<BoxCollider2D>().bounds.extents.y) + attached.GetComponent<Transform>().position.y, 0);
-        transform.localScale = new Vector3(3 * (currentHealth / maxHealth), 0.5f, 1f);
+        transform.localScale = new Vector3(3f * (currentHealth / maxHealth), 0.5f, 1f);   
     }
 }

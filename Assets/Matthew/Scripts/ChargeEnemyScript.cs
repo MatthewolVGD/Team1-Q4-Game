@@ -34,6 +34,8 @@ public class ChargeEnemyScript : MonoBehaviour
     Vector3 headbuttPos;
     public LayerMask playerLayer;
     public float headbuttOffset;
+    ParticleSystem hitParticles;
+    public float particleActiveTime;
     #endregion
     // Start is called before the first frame update
     void Start()
@@ -48,6 +50,10 @@ public class ChargeEnemyScript : MonoBehaviour
 
         ogHeadbuttTimer = headbuttTimer;
         headbuttPos = transform.position + new Vector3(headbuttOffset, 0, 0);
+
+        hitParticles = GetComponent<ParticleSystem>();
+        hitParticles.Stop();
+        hitParticles.enableEmission = true;
     }
 
     // Update is called once per frame
@@ -100,7 +106,10 @@ public class ChargeEnemyScript : MonoBehaviour
             stunned = false;
         }
 
-        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Damage(1, player.gameObject);
+        }
     }
 
     void Movement()//Handles all enemy movement
@@ -201,6 +210,7 @@ public class ChargeEnemyScript : MonoBehaviour
         }
         dealer.gameObject.GetComponent<Player>().currentHealth += detAdd;
         healthBarAccess.GetComponent<EnemyHealthBar>().currentHealth = health;
+        StartCoroutine(Particles());
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -224,5 +234,13 @@ public class ChargeEnemyScript : MonoBehaviour
     {
         Gizmos.DrawWireCube(transform.position, new Vector3(2f * chargerAtkDist, 2f * gameObject.transform.localScale.y, 1));
         Gizmos.DrawWireSphere(headbuttPos, headbuttDistance);
+    }
+
+    IEnumerator Particles()
+    {
+        Debug.Log("Trying");
+        hitParticles.Play();
+        yield return new WaitForSeconds(particleActiveTime);
+        hitParticles.Stop();
     }
 }
