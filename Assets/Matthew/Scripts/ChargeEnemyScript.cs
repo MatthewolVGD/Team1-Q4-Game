@@ -4,6 +4,7 @@ using UnityEngine;
 public class ChargeEnemyScript : MonoBehaviour
 {
     #region MainVariables
+    [Header("Movement")]
     public float speed;//Enemy Speed
     public int health;//Enemy Health
     public float jumpStrength;//Enemy Jump Velocity
@@ -30,8 +31,11 @@ public class ChargeEnemyScript : MonoBehaviour
     float ogHeadbuttTimer;
     public float headbuttDistance;
     public int headbuttDamage;
-    public GameObject hitbox;
-    public bool canCharge;
+    Vector3 headbuttPos;
+    public LayerMask playerLayer;
+    public float headbuttOffset;
+    ParticleSystem hitParticles;
+    public float particleActiveTime;
     #endregion
     // Start is called before the first frame update
     void Start()
@@ -45,11 +49,11 @@ public class ChargeEnemyScript : MonoBehaviour
         healthBarAccess.GetComponent<EnemyHealthBar>().attached = gameObject;
 
         ogHeadbuttTimer = headbuttTimer;
-        /*
-        GameObject chargeHitbox = Instantiate(hitbox, transform.position, transform.rotation, gameObject.transform);
-        chargeHitbox.GetComponent<Hitbox>().purpose = "Charge";
-        chargeHitbox.GetComponent<Hitbox>().attached = gameObject;
-        */
+        headbuttPos = transform.position + new Vector3(headbuttOffset, 0, 0);
+
+        hitParticles = GetComponent<ParticleSystem>();
+        hitParticles.Stop();
+        hitParticles.enableEmission = true;
     }
 
     // Update is called once per frame
@@ -61,18 +65,31 @@ public class ChargeEnemyScript : MonoBehaviour
             Movement();
         }
         
-        if (Mathf.Abs(transform.position.x - player.transform.position.x) <= chargerAtkDist && attackTimer <= 0f && !stunned)//Only attack player if they're within this distance, charger
+        if(Physics2D.OverlapBoxAll(gameObject.transform.position, new Vector2(2f * chargerAtkDist, 2f * gameObject.transform.localScale.y), playerLayer ) != null)
         {
-            StartCoroutine(ChargeAttack());
-            attackTimer = ogAttackTimer;
+            if (attackTimer <= 0f && !stunned)
+            {
+                StartCoroutine(ChargeAttack());
+                attackTimer = ogAttackTimer;
+            }
+        }
+        if(Physics2D.OverlapCircleAll(headbuttPos, headbuttDistance, playerLayer) != null)
+        {
+            if (headbuttTimer <= 0f && !stunned && !charging)
+            {
+                Headbutt();
+                headbuttTimer = ogHeadbuttTimer;
+            }
         }
 
-        if (Mathf.Abs(transform.position.x - player.transform.position.x) <= headbuttDistance && headbuttTimer <= 0f && !stunned && !charging)
+        if(gameObject.GetComponent<SpriteRenderer>().flipX == true)
         {
-            Headbutt();
-            headbuttTimer = ogHeadbuttTimer;
+            headbuttPos = transform.position + new Vector3(headbuttOffset, 0, 0);
         }
-
+        else if(gameObject.GetComponent<SpriteRenderer>().flipX == false)
+        {
+            headbuttPos = transform.position - new Vector3(headbuttOffset, 0, 0);
+        }
         if (!stunned && !charging)
         {
             attackTimer -= Time.deltaTime;
@@ -89,7 +106,10 @@ public class ChargeEnemyScript : MonoBehaviour
             stunned = false;
         }
 
-        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Damage(1, player.gameObject);
+        }
     }
 
     void Movement()//Handles all enemy movement
@@ -190,6 +210,7 @@ public class ChargeEnemyScript : MonoBehaviour
         }
         dealer.gameObject.GetComponent<Player>().currentHealth += detAdd;
         healthBarAccess.GetComponent<EnemyHealthBar>().currentHealth = health;
+        StartCoroutine(Particles());
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -207,5 +228,19 @@ public class ChargeEnemyScript : MonoBehaviour
     void Headbutt()
     {
         player.gameObject.GetComponent<Player>().Damage(headbuttDamage);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireCube(transform.position, new Vector3(2f * chargerAtkDist, 2f * gameObject.transform.localScale.y, 1));
+        Gizmos.DrawWireSphere(headbuttPos, headbuttDistance);
+    }
+
+    IEnumerator Particles()
+    {
+        Debug.Log("Trying");
+        hitParticles.Play();
+        yield return new WaitForSeconds(particleActiveTime);
+        hitParticles.Stop();
     }
 }
