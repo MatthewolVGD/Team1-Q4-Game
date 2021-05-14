@@ -52,11 +52,14 @@ public class EnemyScript : MonoBehaviour
         attackTimer -= Time.deltaTime;
 
         if (Physics2D.OverlapCircleAll(attackPos, attackDist, playerLayer) != null)
-        if (Vector2.Distance(transform.position, player.transform.position) <= attackDist && attackTimer <= 0f)//Only attack player if they're within this distance, skeleton
         {
-            Attack();
-            attackTimer = ogAttackTimer;
+            if (Vector2.Distance(transform.position, player.transform.position) <= attackDist && attackTimer <= 0f)//Only attack player if they're within this distance, skeleton
+            {
+                Attack();
+                attackTimer = ogAttackTimer;
+            }
         }
+        
 
         if (gameObject.GetComponent<SpriteRenderer>().flipX == true)
         {
