@@ -988,6 +988,12 @@ MonoBehaviour:
   dashTim: 1
   healthbar: {fileID: 1360780469}
   fallMultiplier: 2.5
+  boxYSize: 1
+  boxXSize: 3
+  attackOffset: 1
+  EnemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!231 &1030480146
 SpringJoint2D:
   m_ObjectHideFlags: 0
