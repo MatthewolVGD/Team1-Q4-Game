@@ -53,7 +53,7 @@ public class ChargeEnemyScript : MonoBehaviour
 
         hitParticles = GetComponent<ParticleSystem>();
         hitParticles.Stop();
-        hitParticles.enableEmission = true;
+        
     }
 
     // Update is called once per frame
