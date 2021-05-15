@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     public float attackOffset;
     public LayerMask EnemyLayer;
     private Vector3 attackPos;
+    public Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +48,7 @@ public class Player : MonoBehaviour
         //Move right
         if (Input.GetAxis("Horizontal") > 0 && !dashing)
         {
+            animator.SetTrigger("Walking");
             sr.flipX = false;
             rb2.velocity = (new Vector2(speed, rb2.velocity.y));
         }
@@ -55,6 +57,7 @@ public class Player : MonoBehaviour
         //Move left
         if (Input.GetAxis("Horizontal") < 0 && !dashing)
         {
+            animator.SetTrigger("Walking");
             sr.flipX = true;
             rb2.velocity = (new Vector2(-speed, rb2.velocity.y));
         }
@@ -62,6 +65,7 @@ public class Player : MonoBehaviour
         //Stop
         if (Input.GetAxis("Horizontal") == 0 && !dashing)
         {
+            animator.SetTrigger("Idle");
             rb2.velocity = (new Vector2(0, rb2.velocity.y));
         }
     }
@@ -188,6 +192,7 @@ public class Player : MonoBehaviour
     {
         if (Physics2D.OverlapBoxAll(attackPos, new Vector2(boxXSize, boxYSize), EnemyLayer) != null)
         {
+            animator.SetTrigger("Attack");
             Collider2D[] PotentialEnemy = Physics2D.OverlapBoxAll(attackPos, new Vector2(boxXSize, boxYSize), EnemyLayer);
             foreach(Collider2D enemy in PotentialEnemy)
             {
