@@ -21,6 +21,13 @@ public class Player : MonoBehaviour
     public float dashTim;
     private float OGDashTim;
     public Image healthbar;
+    public float fallMultiplier = 2.5f;
+    public float boxYSize;
+    public float boxXSize;
+    public float attackOffset;
+    public LayerMask EnemyLayer;
+    private Vector3 attackPos;
+    public Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +39,7 @@ public class Player : MonoBehaviour
         dashTime = startDashTime;
         dashes = 0;
         OGDashTim = dashTim;
+        attackPos = transform.position + new Vector3(attackOffset, 0, 0);
     }
 
     private void FixedUpdate()
@@ -40,6 +48,7 @@ public class Player : MonoBehaviour
         //Move right
         if (Input.GetAxis("Horizontal") > 0 && !dashing)
         {
+            animator.SetTrigger("Walking");
             sr.flipX = false;
             rb2.velocity = (new Vector2(speed, rb2.velocity.y));
         }
@@ -48,6 +57,7 @@ public class Player : MonoBehaviour
         //Move left
         if (Input.GetAxis("Horizontal") < 0 && !dashing)
         {
+            animator.SetTrigger("Walking");
             sr.flipX = true;
             rb2.velocity = (new Vector2(-speed, rb2.velocity.y));
         }
@@ -55,12 +65,29 @@ public class Player : MonoBehaviour
         //Stop
         if (Input.GetAxis("Horizontal") == 0 && !dashing)
         {
+            animator.SetTrigger("Idle");
             rb2.velocity = (new Vector2(0, rb2.velocity.y));
         }
     }
 
     void Update()
     {
+
+        if(gameObject.GetComponent<SpriteRenderer>().flipX == false)
+        {
+            attackPos = transform.position + new Vector3(attackOffset, 0, 0);
+        }
+        else if (gameObject.GetComponent<SpriteRenderer>().flipX == true)
+        {
+            attackPos = transform.position - new Vector3(attackOffset, 0, 0);
+        }
+
+            //Better Jumping
+            if (rb2.velocity.y < 0)
+        {
+            rb2.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+        }
+
         //Healthbar
         healthbar.fillAmount = currentHealth / maxHealth;
 
@@ -163,28 +190,31 @@ public class Player : MonoBehaviour
     //Attack
     void Attack()
     {
-        int layermask = 1 << 9;
-        layermask = ~layermask;
-        RaycastHit2D potentialEnemy;
-
-        if (gameObject.GetComponent<SpriteRenderer>().flipX)
+        if (Physics2D.OverlapBoxAll(attackPos, new Vector2(boxXSize, boxYSize), EnemyLayer) != null)
         {
-            potentialEnemy = Physics2D.Raycast(transform.position, -gameObject.transform.right, 4f, layermask);
-        }
-        else
-        {
-            potentialEnemy = Physics2D.Raycast(transform.position, gameObject.transform.right, 4f, layermask);
-        }
-
-
-
-        if (potentialEnemy.collider != null)
-        {
-            if (potentialEnemy.collider.gameObject.tag == "Enemy")
+            animator.SetTrigger("Attack");
+            Collider2D[] PotentialEnemy = Physics2D.OverlapBoxAll(attackPos, new Vector2(boxXSize, boxYSize), EnemyLayer);
+            foreach(Collider2D enemy in PotentialEnemy)
             {
-                potentialEnemy.collider.gameObject.GetComponent<EnemyScript>().Damage(damage, gameObject);
+                if(enemy.gameObject.GetComponent<EnemyScript>() != null)
+                {
+                    enemy.gameObject.GetComponent<EnemyScript>().Damage(damage, gameObject);
+                }
+                else if (enemy.gameObject.GetComponent<ChargeEnemyScript>() != null)
+                {
+                    enemy.gameObject.GetComponent<ChargeEnemyScript>().Damage(damage, gameObject);
+                }
             }
         }
+    }
 
+    void Awake()
+    {
+        rb2 = GetComponent<Rigidbody2D>();
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireCube(attackPos, new Vector2(boxXSize, boxYSize));
     }
 }
