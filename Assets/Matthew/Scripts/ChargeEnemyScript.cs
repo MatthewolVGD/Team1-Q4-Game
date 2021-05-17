@@ -82,11 +82,11 @@ public class ChargeEnemyScript : MonoBehaviour
             }
         }
 
-        if(gameObject.GetComponent<SpriteRenderer>().flipX == false)
+        if(gameObject.GetComponent<SpriteRenderer>().flipX == true)
         {
             headbuttPos = transform.position + new Vector3(headbuttOffset, 0, 0);
         }
-        else if(gameObject.GetComponent<SpriteRenderer>().flipX == true)
+        else if(gameObject.GetComponent<SpriteRenderer>().flipX == false)
         {
             headbuttPos = transform.position - new Vector3(headbuttOffset, 0, 0);
         }
@@ -118,12 +118,12 @@ public class ChargeEnemyScript : MonoBehaviour
         if (transform.position.x - player.position.x < -followClose)//Player to right
         {
             rb.velocity = new Vector2(speed, rb.velocity.y);
-            GetComponent<SpriteRenderer>().flipX = true;
+            GetComponent<SpriteRenderer>().flipX = false;
         }
         else if (transform.position.x - player.position.x > followClose)//Player to left
         {
             rb.velocity = new Vector2(-speed, rb.velocity.y);
-            GetComponent<SpriteRenderer>().flipX = false;
+            GetComponent<SpriteRenderer>().flipX = true;
         }
         else if (transform.position.x - player.position.x >= -followClose || transform.position.x - player.position.x <= followClose)
         {
