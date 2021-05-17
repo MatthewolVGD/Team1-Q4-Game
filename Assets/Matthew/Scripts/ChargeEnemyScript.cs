@@ -82,11 +82,11 @@ public class ChargeEnemyScript : MonoBehaviour
             }
         }
 
-        if(gameObject.GetComponent<SpriteRenderer>().flipX == true)
+        if(gameObject.GetComponent<SpriteRenderer>().flipX == false)
         {
             headbuttPos = transform.position + new Vector3(headbuttOffset, 0, 0);
         }
-        else if(gameObject.GetComponent<SpriteRenderer>().flipX == false)
+        else if(gameObject.GetComponent<SpriteRenderer>().flipX == true)
         {
             headbuttPos = transform.position - new Vector3(headbuttOffset, 0, 0);
         }
