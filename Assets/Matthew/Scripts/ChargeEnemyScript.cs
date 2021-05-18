@@ -185,12 +185,12 @@ public class ChargeEnemyScript : MonoBehaviour
             if (chargeDir == "Right")
             {
                 rb.velocity = new Vector2(chargeSpeed, rb.velocity.y);
-                GetComponent<SpriteRenderer>().flipX = true;
+                GetComponent<SpriteRenderer>().flipX = false;
             }
             else if (chargeDir == "Left")
             {
                 rb.velocity = new Vector2(-chargeSpeed, rb.velocity.y);
-                GetComponent<SpriteRenderer>().flipX = false;
+                GetComponent<SpriteRenderer>().flipX = true;
             }
         }
         gameObject.GetComponent<SpriteRenderer>().color = Color.red;
