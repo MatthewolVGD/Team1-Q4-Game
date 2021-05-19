@@ -53,7 +53,7 @@ public class ChargeEnemyScript : MonoBehaviour
 
         hitParticles = GetComponent<ParticleSystem>();
         hitParticles.Stop();
-        hitParticles.enableEmission = true;
+        
     }
 
     // Update is called once per frame
@@ -82,11 +82,11 @@ public class ChargeEnemyScript : MonoBehaviour
             }
         }
 
-        if(gameObject.GetComponent<SpriteRenderer>().flipX == true)
+        if(gameObject.GetComponent<SpriteRenderer>().flipX == false)
         {
             headbuttPos = transform.position + new Vector3(headbuttOffset, 0, 0);
         }
-        else if(gameObject.GetComponent<SpriteRenderer>().flipX == false)
+        else if(gameObject.GetComponent<SpriteRenderer>().flipX == true)
         {
             headbuttPos = transform.position - new Vector3(headbuttOffset, 0, 0);
         }
@@ -106,9 +106,14 @@ public class ChargeEnemyScript : MonoBehaviour
             stunned = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+
+        if (stunned)
         {
-            Damage(1, player.gameObject);
+            gameObject.GetComponent<Animator>().enabled = false;
+        }
+        else if (!stunned)
+        {
+            gameObject.GetComponent<Animator>().enabled = true;
         }
     }
 
@@ -118,12 +123,12 @@ public class ChargeEnemyScript : MonoBehaviour
         if (transform.position.x - player.position.x < -followClose)//Player to right
         {
             rb.velocity = new Vector2(speed, rb.velocity.y);
-            GetComponent<SpriteRenderer>().flipX = true;
+            GetComponent<SpriteRenderer>().flipX = false;
         }
         else if (transform.position.x - player.position.x > followClose)//Player to left
         {
             rb.velocity = new Vector2(-speed, rb.velocity.y);
-            GetComponent<SpriteRenderer>().flipX = false;
+            GetComponent<SpriteRenderer>().flipX = true;
         }
         else if (transform.position.x - player.position.x >= -followClose || transform.position.x - player.position.x <= followClose)
         {
@@ -178,19 +183,21 @@ public class ChargeEnemyScript : MonoBehaviour
         }
         Debug.Log("Charging");
         gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
+        gameObject.GetComponent<Animator>().enabled = false;
         yield return new WaitForSeconds(beforeChargeStopTime);
+        gameObject.GetComponent<Animator>().enabled = true;
         Debug.Log("Moving");
         if (chargeDir != null)
         {
             if (chargeDir == "Right")
             {
                 rb.velocity = new Vector2(chargeSpeed, rb.velocity.y);
-                GetComponent<SpriteRenderer>().flipX = true;
+                GetComponent<SpriteRenderer>().flipX = false;
             }
             else if (chargeDir == "Left")
             {
                 rb.velocity = new Vector2(-chargeSpeed, rb.velocity.y);
-                GetComponent<SpriteRenderer>().flipX = false;
+                GetComponent<SpriteRenderer>().flipX = true;
             }
         }
         gameObject.GetComponent<SpriteRenderer>().color = Color.red;
