@@ -98,7 +98,7 @@ public class ChargeEnemyScript : MonoBehaviour
         if(stunned && stunTime > 0f)
         {
             stunTime -= Time.deltaTime;
-            Debug.Log("Stunned");
+            
         }
         else if (stunned && stunTime <= 0f)
         {
