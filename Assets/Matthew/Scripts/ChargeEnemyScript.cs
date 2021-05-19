@@ -82,11 +82,11 @@ public class ChargeEnemyScript : MonoBehaviour
             }
         }
 
-        if(gameObject.GetComponent<SpriteRenderer>().flipX == true)
+        if(gameObject.GetComponent<SpriteRenderer>().flipX == false)
         {
             headbuttPos = transform.position + new Vector3(headbuttOffset, 0, 0);
         }
-        else if(gameObject.GetComponent<SpriteRenderer>().flipX == false)
+        else if(gameObject.GetComponent<SpriteRenderer>().flipX == true)
         {
             headbuttPos = transform.position - new Vector3(headbuttOffset, 0, 0);
         }
@@ -106,9 +106,14 @@ public class ChargeEnemyScript : MonoBehaviour
             stunned = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+
+        if (stunned)
         {
-            Damage(1, player.gameObject);
+            gameObject.GetComponent<Animator>().enabled = false;
+        }
+        else if (!stunned)
+        {
+            gameObject.GetComponent<Animator>().enabled = true;
         }
     }
 
@@ -178,7 +183,9 @@ public class ChargeEnemyScript : MonoBehaviour
         }
         Debug.Log("Charging");
         gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
+        gameObject.GetComponent<Animator>().enabled = false;
         yield return new WaitForSeconds(beforeChargeStopTime);
+        gameObject.GetComponent<Animator>().enabled = true;
         Debug.Log("Moving");
         if (chargeDir != null)
         {

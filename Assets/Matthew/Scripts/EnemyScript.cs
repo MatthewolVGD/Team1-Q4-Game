@@ -70,10 +70,7 @@ public class EnemyScript : MonoBehaviour
             attackPos = transform.position - new Vector3(attackOffset, 0, 0);
         }
 
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            Damage(1, player.gameObject);
-        }
+        
     }
 
     void Movement()//Handles all enemy movement
