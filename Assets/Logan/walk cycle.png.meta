@@ -121,9 +121,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 22
-        y: 259
+        y: 256
         width: 173
-        height: 233
+        height: 236
       alignment: 9
       pivot: {x: 0.71995825, y: 0.43550393}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -142,9 +142,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 251
-        y: 266
-        width: 166
-        height: 231
+        y: 262
+        width: 168
+        height: 235
       alignment: 9
       pivot: {x: 0.7114043, y: 0.41363928}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,10 +162,10 @@ TextureImporter:
       name: walk cycle_2
       rect:
         serializedVersion: 2
-        x: 477
-        y: 262
-        width: 168
-        height: 236
+        x: 474
+        y: 258
+        width: 169
+        height: 239
       alignment: 9
       pivot: {x: 0.7026479, y: 0.39916304}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -183,10 +183,10 @@ TextureImporter:
       name: walk cycle_3
       rect:
         serializedVersion: 2
-        x: 765
-        y: 285
-        width: 178
-        height: 227
+        x: 692
+        y: 258
+        width: 176
+        height: 230
       alignment: 9
       pivot: {x: 0.7090021, y: 0.4227916}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -205,9 +205,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 20
-        y: 8
+        y: 4
         width: 176
-        height: 234
+        height: 238
       alignment: 9
       pivot: {x: 0.7378299, y: 0.43071637}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -226,9 +226,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 254
-        y: 3
-        width: 171
-        height: 237
+        y: 0
+        width: 169
+        height: 240
       alignment: 9
       pivot: {x: 0.6951424, y: 0.41015327}
       border: {x: 0, y: 0, z: 0, w: 0}
