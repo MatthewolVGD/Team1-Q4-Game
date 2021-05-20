@@ -29,6 +29,10 @@ public class Player : MonoBehaviour
     private Vector3 attackPos;
     public Animator animator;
 
+    
+    public float stepHeight;
+    public float stepSmooth;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +48,9 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+       
+
+
 
         //Move right
         if (Input.GetAxis("Horizontal") > 0 && !dashing)
@@ -72,8 +79,39 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        float yColl = gameObject.GetComponent<BoxCollider2D>().bounds.extents.y;
+        float xColl = gameObject.GetComponent<BoxCollider2D>().bounds.extents.x;
+        RaycastHit2D stepLower = Physics2D.Raycast(transform.position + new Vector3(xColl, -yColl + 0.01f, 0), Vector2.right, 0.1f);
+        RaycastHit2D stepUpper = Physics2D.Raycast(transform.position + new Vector3(xColl, -yColl + stepHeight, 0), Vector2.right, 0.1f);
+        if (gameObject.GetComponent<SpriteRenderer>().flipX == false)
+        {
+            stepLower = Physics2D.Raycast(transform.position + new Vector3(xColl - 0.03f, -yColl + 0.01f, 0), Vector2.right, 0.1f);
+            stepUpper = Physics2D.Raycast(transform.position + new Vector3(xColl - 0.03f, -yColl + stepHeight, 0), Vector2.right, 0.1f);
+            Debug.DrawRay(transform.position + new Vector3(xColl - 0.03f, -yColl + 0.01f, 0), Vector2.right, Color.red);
+            Debug.DrawRay(transform.position + new Vector3(xColl - 0.03f, -yColl + stepHeight, 0), Vector2.right, Color.red);        
+        }
+        else if (gameObject.GetComponent<SpriteRenderer>().flipX == true)
+        {
+            stepLower = Physics2D.Raycast(transform.position + new Vector3(-xColl - 0.04f, -yColl + 0.01f, 0), -Vector2.right, 0.1f);
+            stepUpper = Physics2D.Raycast(transform.position + new Vector3(-xColl - 0.04f, -yColl + stepHeight, 0), -Vector2.right, 0.1f);
+            Debug.DrawRay(transform.position + new Vector3(-xColl - 0.04f, -yColl + 0.01f, 0), -Vector2.right, Color.red);
+            Debug.DrawRay(transform.position + new Vector3(-xColl - 0.04f, -yColl + stepHeight, 0), -Vector2.right, Color.red);
+        }
+        if(stepLower.collider !=null)
+        {
+            Debug.Log("Trying");
+            Debug.Log(stepLower.collider.name);
+            
+            if (stepUpper.collider == null)
+            {
+                rb2.position -= new Vector2(0f, -stepSmooth);
 
-        if(gameObject.GetComponent<SpriteRenderer>().flipX == false)
+            }
+        }
+        
+
+
+        if (gameObject.GetComponent<SpriteRenderer>().flipX == false)
         {
             attackPos = transform.position + new Vector3(attackOffset, 0, 0);
         }
@@ -93,14 +131,7 @@ public class Player : MonoBehaviour
 
         Debug.DrawRay(transform.position, gameObject.transform.right, Color.red);
         //Player flipping
-        if (rb2.velocity.x < 0f)
-        {
-            gameObject.GetComponent<SpriteRenderer>().flipX = true;
-        }
-        else
-        {
-            gameObject.GetComponent<SpriteRenderer>().flipX = false;
-        }
+        
 
         //Jump
         if (Input.GetButtonDown("Jump"))
@@ -113,11 +144,11 @@ public class Player : MonoBehaviour
         }
 
         float DistanceToTheGround = GetComponent<BoxCollider2D>().bounds.extents.y;
-        RaycastHit2D grounded = Physics2D.Raycast(transform.position - new Vector3(0, DistanceToTheGround + 0.03f, 0), Vector2.down, 0.01f);
-        Debug.DrawRay(transform.position - new Vector3(0, DistanceToTheGround + 0.03f, 0), Vector2.down, Color.blue);
+        RaycastHit2D grounded = Physics2D.Raycast(transform.position - new Vector3(0, DistanceToTheGround + 0.01f, 0), Vector2.down, 0.01f);
+        Debug.DrawRay(transform.position - new Vector3(0, DistanceToTheGround + 0.01f, 0), Vector2.down, Color.blue);
         if (grounded.collider != null)
         {
-            Debug.Log(grounded.collider.gameObject.name);
+            
             if (grounded.collider.gameObject.tag == "Terrain")
             {
                 numberOfJumps = OGJumps;
