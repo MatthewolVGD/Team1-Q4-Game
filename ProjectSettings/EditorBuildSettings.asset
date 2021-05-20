@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Isaac/test3.unity
     guid: 802d3746b783b6f47bea7bcf6560aee4
+  - enabled: 1
+    path: Assets/Isaac/CreditRoller.unity
+    guid: 1a2317b50621a9e4bad198872fd388ed
   m_configObjects: {}

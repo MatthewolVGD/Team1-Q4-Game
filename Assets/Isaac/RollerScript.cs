@@ -2,7 +2,7 @@
 
 public class RollerScript : MonoBehaviour
 {
-    private static int nScreens = 5;
+    private static int nScreens = 3;
     private GameObject[] creditScreens = new GameObject[nScreens];
     private static int swapCount = 0;
 
@@ -11,11 +11,10 @@ public class RollerScript : MonoBehaviour
     void Start()
     {
         //For each credit screen, add a new reference here:
-        creditScreens[0] = GameObject.Find("Credit1");
-        creditScreens[1] = GameObject.Find("Credit2");
-        creditScreens[2] = GameObject.Find("Credit3");
-        creditScreens[3] = GameObject.Find("Credit4");
-        creditScreens[4] = GameObject.Find("Credit5");
+        creditScreens[0] = GameObject.Find("programmers + tristan");
+        creditScreens[1] = GameObject.Find("rune");
+        creditScreens[2] = GameObject.Find("anika");
+    
 
 
         //Turn them all off...
@@ -31,7 +30,7 @@ public class RollerScript : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             //Toggle
             int currentScene = swapCount % nScreens;
