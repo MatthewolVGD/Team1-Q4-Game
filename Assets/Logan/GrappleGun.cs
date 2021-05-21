@@ -51,6 +51,8 @@ public class GrappleGun : MonoBehaviour
     [HideInInspector] public Vector2 grapplePoint;
     [HideInInspector] public Vector2 grappleDistanceVector;
 
+
+    
     private void Start()
     {
         grappleRope.enabled = false;
@@ -125,7 +127,9 @@ public class GrappleGun : MonoBehaviour
         Vector2 distanceVector = m_camera.ScreenToWorldPoint(Input.mousePosition) - gunPivot.position;
         if (Physics2D.Raycast(firePoint.position, distanceVector.normalized))
         {
-            int layerMask = 1 << 9;
+            int layer1 = 1 << 9;
+            int layer2 = 1 << 11;
+            LayerMask layerMask = layer1 | layer2;
             layerMask = ~layerMask;
 
             RaycastHit2D _hit = Physics2D.Raycast(firePoint.position, distanceVector.normalized, Mathf.Infinity, layerMask);

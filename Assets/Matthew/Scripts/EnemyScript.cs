@@ -24,6 +24,9 @@ public class EnemyScript : MonoBehaviour
     public float attackOffset;
     ParticleSystem hitParticles;
     public float particleActiveTime;
+    public float stepHeight;
+    public float stepSmooth;
+    Rigidbody2D rb2;
     #endregion
     // Start is called before the first frame update
     void Start()
@@ -38,12 +41,45 @@ public class EnemyScript : MonoBehaviour
         attackPos = transform.position + new Vector3(attackOffset, 0, 0);
         hitParticles = GetComponent<ParticleSystem>();
         hitParticles.Stop();
-       
+
+
+        rb2 = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        float yColl = gameObject.GetComponent<BoxCollider2D>().bounds.extents.y;
+        float xColl = gameObject.GetComponent<BoxCollider2D>().bounds.extents.x;
+        RaycastHit2D stepLower = Physics2D.Raycast(transform.position + new Vector3(xColl, -yColl + 0.01f, 0), Vector2.right, 0.1f);
+        RaycastHit2D stepUpper = Physics2D.Raycast(transform.position + new Vector3(xColl, -yColl + stepHeight, 0), Vector2.right, 0.1f);
+        if (gameObject.GetComponent<SpriteRenderer>().flipX == false)
+        {
+            stepLower = Physics2D.Raycast(transform.position + new Vector3(xColl - 0.04f, -yColl + 0.01f, 0), Vector2.right, 0.1f);
+            stepUpper = Physics2D.Raycast(transform.position + new Vector3(xColl - 0.04f, -yColl + stepHeight, 0), Vector2.right, 0.1f);
+            Debug.DrawRay(transform.position + new Vector3(xColl - 0.04f, -yColl + 0.01f, 0), Vector2.right, Color.red);
+            Debug.DrawRay(transform.position + new Vector3(xColl - 0.04f, -yColl + stepHeight, 0), Vector2.right, Color.red);
+        }
+        else if (gameObject.GetComponent<SpriteRenderer>().flipX == true)
+        {
+            stepLower = Physics2D.Raycast(transform.position + new Vector3(-xColl - 0.06f, -yColl + 0.01f, 0), -Vector2.right, 0.1f);
+            stepUpper = Physics2D.Raycast(transform.position + new Vector3(-xColl - 0.06f, -yColl + stepHeight, 0), -Vector2.right, 0.1f);
+            Debug.DrawRay(transform.position + new Vector3(-xColl - 0.06f, -yColl + 0.01f, 0), -Vector2.right, Color.red);
+            Debug.DrawRay(transform.position + new Vector3(-xColl - 0.06f, -yColl + stepHeight, 0), -Vector2.right, Color.red);
+        }
+        if (stepLower.collider != null)
+        {
+            Debug.Log("Trying");
+            Debug.Log(stepLower.collider.name);
+
+            if (stepUpper.collider == null)
+            {
+                rb2.position -= new Vector2(0f, -stepSmooth);
+            }
+        }
+
+
+
         if (Vector2.Distance(transform.position, player.transform.position) < chasePlayerDist)//Only chase player if they're within this distance
         {
             Movement();
