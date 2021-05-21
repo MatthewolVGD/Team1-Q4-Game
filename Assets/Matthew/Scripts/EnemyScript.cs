@@ -61,11 +61,11 @@ public class EnemyScript : MonoBehaviour
         }
         
 
-        if (gameObject.GetComponent<SpriteRenderer>().flipX == true)
+        if (gameObject.GetComponent<SpriteRenderer>().flipX == false)
         {
             attackPos = transform.position + new Vector3(attackOffset, 0, 0);
         }
-        else if (gameObject.GetComponent<SpriteRenderer>().flipX == false)
+        else if (gameObject.GetComponent<SpriteRenderer>().flipX == true)
         {
             attackPos = transform.position - new Vector3(attackOffset, 0, 0);
         }
@@ -80,12 +80,12 @@ public class EnemyScript : MonoBehaviour
         if (transform.position.x - player.position.x < -followClose)//Player to right
         {
             rb.velocity = new Vector2(speed, rb.velocity.y);
-            GetComponent<SpriteRenderer>().flipX = true;
+            GetComponent<SpriteRenderer>().flipX = false;
         }
         else if (transform.position.x - player.position.x > followClose)//Player to left
         {
             rb.velocity = new Vector2(-speed, rb.velocity.y);
-            GetComponent<SpriteRenderer>().flipX = false;
+            GetComponent<SpriteRenderer>().flipX = true;
         }
         else if (transform.position.x - player.position.x >= -followClose || transform.position.x - player.position.x <= followClose)
         {
