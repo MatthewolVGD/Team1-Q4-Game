@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class AudioController : MonoBehaviour
 {
-    public AudioController controller;
+    public AudioSource controller;
     public AudioClip[] songs;
     // Start is called before the first frame update
     void Start()
     {
-        
+        controller = GetComponent<AudioSource>();
+        controller.clip = songs[3];
+        controller.Play();
     }
 
     // Update is called once per frame

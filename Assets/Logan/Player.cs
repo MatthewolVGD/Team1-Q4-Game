@@ -248,4 +248,15 @@ public class Player : MonoBehaviour
     {
         Gizmos.DrawWireCube(attackPos, new Vector2(boxXSize, boxYSize));
     }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        
+        if (collision.GetComponent<AudioCheckpoints>() != null)
+        {
+            collision.GetComponent<AudioCheckpoints>().source.clip = collision.GetComponent<AudioCheckpoints>().clip;
+            collision.GetComponent<AudioCheckpoints>().source.Play();
+        }
+    }
 }

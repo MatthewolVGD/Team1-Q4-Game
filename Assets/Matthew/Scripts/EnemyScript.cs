@@ -55,17 +55,17 @@ public class EnemyScript : MonoBehaviour
         RaycastHit2D stepUpper = Physics2D.Raycast(transform.position + new Vector3(xColl, -yColl + stepHeight, 0), Vector2.right, 0.1f);
         if (gameObject.GetComponent<SpriteRenderer>().flipX == false)
         {
-            stepLower = Physics2D.Raycast(transform.position + new Vector3(xColl - 0.06f, -yColl + 0.01f, 0), Vector2.right, 0.1f);
-            stepUpper = Physics2D.Raycast(transform.position + new Vector3(xColl - 0.06f, -yColl + stepHeight, 0), Vector2.right, 0.1f);
-            Debug.DrawRay(transform.position + new Vector3(xColl - 0.06f, -yColl + 0.01f, 0), Vector2.right, Color.red);
-            Debug.DrawRay(transform.position + new Vector3(xColl - 0.06f, -yColl + stepHeight, 0), Vector2.right, Color.red);
+            stepLower = Physics2D.Raycast(transform.position + new Vector3(xColl - 0.04f, -yColl + 0.01f, 0), Vector2.right, 0.1f);
+            stepUpper = Physics2D.Raycast(transform.position + new Vector3(xColl - 0.04f, -yColl + stepHeight, 0), Vector2.right, 0.1f);
+            Debug.DrawRay(transform.position + new Vector3(xColl - 0.04f, -yColl + 0.01f, 0), Vector2.right, Color.red);
+            Debug.DrawRay(transform.position + new Vector3(xColl - 0.04f, -yColl + stepHeight, 0), Vector2.right, Color.red);
         }
         else if (gameObject.GetComponent<SpriteRenderer>().flipX == true)
         {
-            stepLower = Physics2D.Raycast(transform.position + new Vector3(-xColl - 0.08f, -yColl + 0.01f, 0), -Vector2.right, 0.1f);
-            stepUpper = Physics2D.Raycast(transform.position + new Vector3(-xColl - 0.08f, -yColl + stepHeight, 0), -Vector2.right, 0.1f);
-            Debug.DrawRay(transform.position + new Vector3(-xColl - 0.08f, -yColl + 0.01f, 0), -Vector2.right, Color.red);
-            Debug.DrawRay(transform.position + new Vector3(-xColl - 0.08f, -yColl + stepHeight, 0), -Vector2.right, Color.red);
+            stepLower = Physics2D.Raycast(transform.position + new Vector3(-xColl - 0.06f, -yColl + 0.01f, 0), -Vector2.right, 0.1f);
+            stepUpper = Physics2D.Raycast(transform.position + new Vector3(-xColl - 0.06f, -yColl + stepHeight, 0), -Vector2.right, 0.1f);
+            Debug.DrawRay(transform.position + new Vector3(-xColl - 0.06f, -yColl + 0.01f, 0), -Vector2.right, Color.red);
+            Debug.DrawRay(transform.position + new Vector3(-xColl - 0.06f, -yColl + stepHeight, 0), -Vector2.right, Color.red);
         }
         if (stepLower.collider != null)
         {
