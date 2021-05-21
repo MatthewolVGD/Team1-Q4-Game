@@ -36,6 +36,7 @@ public class ChargeEnemyScript : MonoBehaviour
     public float headbuttOffset;
     ParticleSystem hitParticles;
     public float particleActiveTime;
+    
     #endregion
     // Start is called before the first frame update
     void Start()
@@ -59,6 +60,11 @@ public class ChargeEnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+
+
+
+
 
         if (Vector2.Distance(transform.position, player.transform.position) < chasePlayerDist && !charging && !stunned)//Only chase player if they're within this distance
         {

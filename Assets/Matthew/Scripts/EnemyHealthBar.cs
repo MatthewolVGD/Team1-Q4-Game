@@ -19,6 +19,10 @@ public class EnemyHealthBar : MonoBehaviour
     {
         transform.position = new Vector3(attached.GetComponent<Transform>().position.x, (attached.GetComponent<BoxCollider2D>().bounds.extents.y) + attached.GetComponent<Transform>().position.y, 0);
         transform.localScale = new Vector3(3f * (currentHealth / maxHealth), 0.5f, 1f);
+        if (transform.localScale.x <= 0f)
+        {
+            Destroy(gameObject);
+        }
         
     }
 }
