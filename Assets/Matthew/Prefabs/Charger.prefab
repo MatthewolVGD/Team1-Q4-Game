@@ -166,13 +166,13 @@ MonoBehaviour:
     type: 3}
   healthBarAccess: {fileID: 0}
   jumpDist: 3
-  headbuttTimer: 5
-  headbuttDistance: 2
-  headbuttDamage: 1
+  headbuttTimer: 0
+  headbuttDistance: 0
+  headbuttDamage: 0
   playerLayer:
     serializedVersion: 2
     m_Bits: 512
-  headbuttOffset: 3
+  headbuttOffset: 0
   particleActiveTime: 0.25
 --- !u!198 &5519017276868738925
 ParticleSystem:
