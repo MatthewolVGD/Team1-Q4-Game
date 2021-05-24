@@ -51,14 +51,14 @@ public class Player : MonoBehaviour
         dashes = 0;
         OGDashTim = dashTim;
         attackPos = transform.position + new Vector3(attackOffset, 0, 0);
-<<<<<<< HEAD
+
         hasGrapple = false;
         OGattackTimer = attackTimer;
-=======
+
 
         hitParticles = GetComponent<ParticleSystem>();
         hitParticles.Stop();
->>>>>>> Matthew_Enemy_Work
+
     }
 
     private void FixedUpdate()
