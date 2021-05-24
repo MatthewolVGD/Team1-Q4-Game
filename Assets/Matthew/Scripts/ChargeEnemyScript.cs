@@ -232,8 +232,9 @@ public class ChargeEnemyScript : MonoBehaviour
         if (health <= 0)
         {
             Destroy(gameObject);
+            dealer.gameObject.GetComponent<Player>().currentHealth += detAdd;
         }
-        dealer.gameObject.GetComponent<Player>().currentHealth += detAdd;
+ 
         healthBarAccess.GetComponent<EnemyHealthBar>().currentHealth = health;
         StartCoroutine(Particles());
     }
