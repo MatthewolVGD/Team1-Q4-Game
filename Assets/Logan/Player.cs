@@ -28,6 +28,9 @@ public class Player : MonoBehaviour
     public LayerMask EnemyLayer;
     private Vector3 attackPos;
     public Animator animator;
+    public bool hasGrapple;
+    public float attackTimer;
+    private float OGattackTimer;
 
     
     public float stepHeight;
@@ -44,6 +47,8 @@ public class Player : MonoBehaviour
         dashes = 0;
         OGDashTim = dashTim;
         attackPos = transform.position + new Vector3(attackOffset, 0, 0);
+        hasGrapple = false;
+        OGattackTimer = attackTimer;
     }
 
     private void FixedUpdate()
@@ -74,6 +79,15 @@ public class Player : MonoBehaviour
         {
             animator.SetTrigger("Idle");
             rb2.velocity = (new Vector2(0, rb2.velocity.y));
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Grapple")
+        {
+            hasGrapple = true;
+            Destroy(collision.gameObject);
         }
     }
 
@@ -160,9 +174,11 @@ public class Player : MonoBehaviour
         }
 
         //Attack
-        if (Input.GetMouseButtonDown(0))
+        attackTimer -= Time.deltaTime;
+        if (Input.GetMouseButtonDown(0) && attackTimer <= 0)
         {
             Attack();
+            attackTimer = OGattackTimer;
         }
 
         //Dash
