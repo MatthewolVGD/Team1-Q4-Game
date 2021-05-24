@@ -70,9 +70,10 @@ public class ChargeEnemyScript : MonoBehaviour
         {
             Movement();
         }
-        
-        if(Physics2D.OverlapBoxAll(gameObject.transform.position, new Vector2(2f * chargerAtkDist, 2f * gameObject.transform.localScale.y), playerLayer ) != null)
+        Collider2D[] box = Physics2D.OverlapBoxAll(gameObject.transform.position, new Vector2(2f * chargerAtkDist, 2f * gameObject.transform.localScale.y), 0f, playerLayer);
+        if (box.Length > 0)
         {
+            
             if (attackTimer <= 0f && !stunned)
             {
                 StartCoroutine(ChargeAttack());
@@ -125,16 +126,27 @@ public class ChargeEnemyScript : MonoBehaviour
 
     void Movement()//Handles all enemy movement
     {
+        if (transform.position.x - player.position.x < 0f)//Player to right
+        {
+            
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
+        else if (transform.position.x - player.position.x > 0f)//Player to left
+        {
+            
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
+
 
         if (transform.position.x - player.position.x < -followClose)//Player to right
         {
             rb.velocity = new Vector2(speed, rb.velocity.y);
-            GetComponent<SpriteRenderer>().flipX = false;
+            
         }
         else if (transform.position.x - player.position.x > followClose)//Player to left
         {
             rb.velocity = new Vector2(-speed, rb.velocity.y);
-            GetComponent<SpriteRenderer>().flipX = true;
+           
         }
         else if (transform.position.x - player.position.x >= -followClose || transform.position.x - player.position.x <= followClose)
         {

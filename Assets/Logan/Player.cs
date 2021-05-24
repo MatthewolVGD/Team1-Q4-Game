@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -33,6 +34,9 @@ public class Player : MonoBehaviour
     public float stepHeight;
     public float stepSmooth;
 
+
+    ParticleSystem hitParticles;
+    public float particleActiveTime;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +48,9 @@ public class Player : MonoBehaviour
         dashes = 0;
         OGDashTim = dashTim;
         attackPos = transform.position + new Vector3(attackOffset, 0, 0);
+
+        hitParticles = GetComponent<ParticleSystem>();
+        hitParticles.Stop();
     }
 
     private void FixedUpdate()
@@ -217,6 +224,8 @@ public class Player : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        Debug.Log(damage);
+        StartCoroutine(Particles());
     }
     //Attack
     void Attack()
@@ -258,5 +267,13 @@ public class Player : MonoBehaviour
             collision.GetComponent<AudioCheckpoints>().source.clip = collision.GetComponent<AudioCheckpoints>().clip;
             collision.GetComponent<AudioCheckpoints>().source.Play();
         }
+    }
+
+    IEnumerator Particles()
+    {
+        
+        hitParticles.Play();
+        yield return new WaitForSeconds(particleActiveTime);
+        hitParticles.Stop();
     }
 }
