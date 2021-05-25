@@ -64,7 +64,7 @@ public class GrappleGun : MonoBehaviour
     private void Update()
     {
         grappleTimer -= Time.deltaTime;
-        if (grappleTimer <= 0)
+        if (grappleTimer <= 0 && gunHolder.gameObject.GetComponent<Player>().hasGrapple)
         {
             if (Input.GetKeyDown(KeyCode.Mouse1))
             {

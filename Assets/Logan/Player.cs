@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -28,11 +29,17 @@ public class Player : MonoBehaviour
     public LayerMask EnemyLayer;
     private Vector3 attackPos;
     public Animator animator;
+    public bool hasGrapple;
+    public float attackTimer;
+    private float OGattackTimer;
 
     
     public float stepHeight;
     public float stepSmooth;
 
+
+    ParticleSystem hitParticles;
+    public float particleActiveTime;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +51,14 @@ public class Player : MonoBehaviour
         dashes = 0;
         OGDashTim = dashTim;
         attackPos = transform.position + new Vector3(attackOffset, 0, 0);
+
+        hasGrapple = false;
+        OGattackTimer = attackTimer;
+
+
+        hitParticles = GetComponent<ParticleSystem>();
+        hitParticles.Stop();
+
     }
 
     private void FixedUpdate()
@@ -74,6 +89,15 @@ public class Player : MonoBehaviour
         {
             animator.SetTrigger("Idle");
             rb2.velocity = (new Vector2(0, rb2.velocity.y));
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Grapple")
+        {
+            hasGrapple = true;
+            Destroy(collision.gameObject);
         }
     }
 
@@ -160,9 +184,11 @@ public class Player : MonoBehaviour
         }
 
         //Attack
-        if (Input.GetMouseButtonDown(0))
+        attackTimer -= Time.deltaTime;
+        if (Input.GetMouseButtonDown(0) && attackTimer <= 0)
         {
             Attack();
+            attackTimer = OGattackTimer;
         }
 
         //Dash
@@ -217,6 +243,8 @@ public class Player : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        Debug.Log(damage);
+        StartCoroutine(Particles());
     }
     //Attack
     void Attack()
@@ -258,5 +286,13 @@ public class Player : MonoBehaviour
             collision.GetComponent<AudioCheckpoints>().source.clip = collision.GetComponent<AudioCheckpoints>().clip;
             collision.GetComponent<AudioCheckpoints>().source.Play();
         }
+    }
+
+    IEnumerator Particles()
+    {
+        
+        hitParticles.Play();
+        yield return new WaitForSeconds(particleActiveTime);
+        hitParticles.Stop();
     }
 }
