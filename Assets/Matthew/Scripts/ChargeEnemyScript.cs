@@ -80,7 +80,7 @@ public class ChargeEnemyScript : MonoBehaviour
                 attackTimer = ogAttackTimer;
             }
         }
-        if(Physics2D.OverlapCircleAll(headbuttPos, headbuttDistance, playerLayer) != null)
+        /*if(Physics2D.OverlapCircleAll(headbuttPos, headbuttDistance, playerLayer) != null)
         {
             if (headbuttTimer <= 0f && !stunned && !charging)
             {
@@ -88,7 +88,7 @@ public class ChargeEnemyScript : MonoBehaviour
                 headbuttTimer = ogHeadbuttTimer;
             }
         }
-
+        */
         if(gameObject.GetComponent<SpriteRenderer>().flipX == false)
         {
             headbuttPos = transform.position + new Vector3(headbuttOffset, 0, 0);
