@@ -5,6 +5,7 @@ public class GrappleRope : MonoBehaviour
     [Header("General Refernces:")]
     public GrappleGun grapplingGun;
     public LineRenderer m_lineRenderer;
+    float ZLine = -1;
 
     [Header("General Settings:")]
     [SerializeField] private int precision = 40;
@@ -30,7 +31,7 @@ public class GrappleRope : MonoBehaviour
         moveTime = 0;
         m_lineRenderer.positionCount = precision;
         waveSize = StartWaveSize;
-
+        m_lineRenderer.sortingLayerName = "Particles";
         LinePointsToFirePoint();
 
         m_lineRenderer.enabled = true;
@@ -47,7 +48,7 @@ public class GrappleRope : MonoBehaviour
     {
         for (int i = 0; i < precision; i++)
         {
-            m_lineRenderer.SetPosition(i, grapplingGun.firePoint.position);
+            m_lineRenderer.SetPosition(i, V3Fix(grapplingGun.firePoint.position));
         }
     }
 
@@ -102,13 +103,19 @@ public class GrappleRope : MonoBehaviour
             Vector2 targetPosition = Vector2.Lerp(grapplingGun.firePoint.position, grapplingGun.grapplePoint, delta) + offset;
             Vector2 currentPosition = Vector2.Lerp(grapplingGun.firePoint.position, targetPosition, ropeProgressionCurve.Evaluate(moveTime) * ropeProgressionSpeed);
 
-            m_lineRenderer.SetPosition(i, currentPosition);
+            m_lineRenderer.SetPosition(i, V3Fix(currentPosition));
         }
     }
 
     void DrawRopeNoWaves()
     {
-        m_lineRenderer.SetPosition(0, grapplingGun.firePoint.position);
-        m_lineRenderer.SetPosition(1, grapplingGun.grapplePoint);
+        //Debug.Log(m_lineRenderer.sortingLayerName);
+        m_lineRenderer.SetPosition(0, V3Fix(grapplingGun.firePoint.position));
+        m_lineRenderer.SetPosition(1, V3Fix(grapplingGun.grapplePoint));
+    }
+
+    private Vector3 V3Fix(Vector2 V2)
+    {
+        return new Vector3(V2.x, V2.y, ZLine);
     }
 }
