@@ -25,7 +25,7 @@ public class Monitor : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
 
-            SceneManager.LoadScene("MainScene"); //Requires "Using" (see above)
+            SceneManager.LoadScene("test3"); //Requires "Using" (see above)
 
         }
 

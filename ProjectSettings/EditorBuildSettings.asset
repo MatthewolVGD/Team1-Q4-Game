@@ -17,4 +17,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Isaac/CreditRoller.unity
     guid: 1a2317b50621a9e4bad198872fd388ed
+  - enabled: 1
+    path: Assets/Isaac/StoryBoard1.unity
+    guid: d0b355581fa1f214e8409b4dc4b79806
+  - enabled: 1
+    path: Assets/Isaac/StoryBoard2.unity
+    guid: 497be13414afd194cbbd3f354c3535ec
+  - enabled: 1
+    path: Assets/Isaac/StoryBoard3.unity
+    guid: a29ee93b4a8898146aa2051010335229
+  - enabled: 1
+    path: Assets/Isaac/StoryBoard4.unity
+    guid: 7e09f879202db84438efec54b2f58455
   m_configObjects: {}

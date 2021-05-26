@@ -157,8 +157,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1, y: -89}
-  m_SizeDelta: {x: 405.69342, y: 88.06416}
+  m_AnchoredPosition: {x: -0.59, y: -86.22}
+  m_SizeDelta: {x: 402.51813, y: 82.50737}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &37621530
 MonoBehaviour:
@@ -691,7 +691,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &476172994
 GameObject:
@@ -906,7 +906,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &621142567
 GameObject:
@@ -1227,7 +1227,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: test3
+          m_StringArgument: StoryBoard1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &835348338
@@ -1483,7 +1483,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1248160879}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a085eaffc28bdab46889ea8606487f4a, type: 3}
+  m_Script: {fileID: 11500000, guid: 98c808952b55b8844b0217731001d490, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1270304130
@@ -1588,8 +1588,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -7.5, y: -199.14001}
-  m_SizeDelta: {x: 211.70184, y: 94.15631}
+  m_AnchoredPosition: {x: -8.59, y: -189.69}
+  m_SizeDelta: {x: 209.52106, y: 75.256134}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1629606404
 MonoBehaviour:
@@ -1983,7 +1983,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1836823452
 GameObject:
