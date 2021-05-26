@@ -62,10 +62,10 @@ public class EnemyScript : MonoBehaviour
         }
         else if (gameObject.GetComponent<SpriteRenderer>().flipX == true)
         {
-            stepLower = Physics2D.Raycast(transform.position + new Vector3(-xColl - 0.06f, -yColl + 0.01f, 0), -Vector2.right, 0.1f);
-            stepUpper = Physics2D.Raycast(transform.position + new Vector3(-xColl - 0.06f, -yColl + stepHeight, 0), -Vector2.right, 0.1f);
-            Debug.DrawRay(transform.position + new Vector3(-xColl - 0.06f, -yColl + 0.01f, 0), -Vector2.right, Color.red);
-            Debug.DrawRay(transform.position + new Vector3(-xColl - 0.06f, -yColl + stepHeight, 0), -Vector2.right, Color.red);
+            stepLower = Physics2D.Raycast(transform.position + new Vector3(-xColl - 0.05f, -yColl + 0.01f, 0), -Vector2.right, 0.1f);
+            stepUpper = Physics2D.Raycast(transform.position + new Vector3(-xColl - 0.05f, -yColl + stepHeight, 0), -Vector2.right, 0.1f);
+            Debug.DrawRay(transform.position + new Vector3(-xColl - 0.05f, -yColl + 0.01f, 0), -Vector2.right, Color.red);
+            Debug.DrawRay(transform.position + new Vector3(-xColl - 0.05f, -yColl + stepHeight, 0), -Vector2.right, Color.red);
         }
         if (stepLower.collider != null)
         {

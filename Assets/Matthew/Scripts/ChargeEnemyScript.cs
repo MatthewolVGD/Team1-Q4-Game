@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class ChargeEnemyScript : MonoBehaviour
 {
     #region MainVariables
@@ -18,7 +18,7 @@ public class ChargeEnemyScript : MonoBehaviour
     public float chargerAtkDist;//How close the player has to be for a charging enemy to attack them
     public float chargeSpeed;//Speed enemy charges at
     public bool charging;//Whether enemy is charging
-    bool stunned;//Whether enemy is stunned
+    public bool stunned;//Whether enemy is stunned
     public float stunTime;//How long enemy is stunned
     float ogStunTime;//OG how long enemy is stunned for reset purposes
     public float followClose;//How close the enemy will get before it stops following the player
@@ -231,8 +231,13 @@ public class ChargeEnemyScript : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
+            if (gameObject.name == "Boss")
+            {
+                SceneManager.LoadScene("WinScene");
+            }
             Destroy(gameObject);
             dealer.gameObject.GetComponent<Player>().currentHealth += detAdd;
+            
         }
  
         healthBarAccess.GetComponent<EnemyHealthBar>().currentHealth = health;

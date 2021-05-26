@@ -29,4 +29,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Isaac/StoryBoard4.unity
     guid: 7e09f879202db84438efec54b2f58455
+  - enabled: 1
+    path: Assets/Matthew/WinScene.unity
+    guid: c8b65ba4845bb1d4eb03633b48bf1d6b
+  - enabled: 1
+    path: Assets/Matthew/LoseScene.unity
+    guid: 2de80824582d2d74a9db6fac76c5fced
   m_configObjects: {}
