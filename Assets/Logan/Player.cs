@@ -127,8 +127,7 @@ public class Player : MonoBehaviour
         }
         if(stepLower.collider !=null)
         {
-            Debug.Log("Trying");
-            Debug.Log(stepLower.collider.name);
+            
             
             if (stepUpper.collider == null)
             {

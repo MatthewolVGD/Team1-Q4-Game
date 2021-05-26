@@ -80,15 +80,13 @@ public class ChargeEnemyScript : MonoBehaviour
                 attackTimer = ogAttackTimer;
             }
         }
-        /*if(Physics2D.OverlapCircleAll(headbuttPos, headbuttDistance, playerLayer) != null)
+        Collider2D[] stunCircle = Physics2D.OverlapCircleAll(headbuttPos, headbuttDistance, 10);
+        Debug.Log(stunCircle.Length);
+        if (stunCircle.Length > 0 && charging)
         {
-            if (headbuttTimer <= 0f && !stunned && !charging)
-            {
-                Headbutt();
-                headbuttTimer = ogHeadbuttTimer;
-            }
+            stunned = true;
         }
-        */
+        
         if(gameObject.GetComponent<SpriteRenderer>().flipX == false)
         {
             headbuttPos = transform.position + new Vector3(headbuttOffset, 0, 0);
@@ -199,12 +197,12 @@ public class ChargeEnemyScript : MonoBehaviour
         {
             chargeDir = "Left";
         }
-        Debug.Log("Charging");
+        
         gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
         gameObject.GetComponent<Animator>().enabled = false;
         yield return new WaitForSeconds(beforeChargeStopTime);
         gameObject.GetComponent<Animator>().enabled = true;
-        Debug.Log("Moving");
+        
         if (chargeDir != null)
         {
             if (chargeDir == "Right")
@@ -250,10 +248,7 @@ public class ChargeEnemyScript : MonoBehaviour
         {
             player.gameObject.GetComponent<Player>().Damage(damage);
         }
-        if (charging && collision.gameObject.tag == "Terrain")
-        {
-            stunned = true;
-        }
+        
     }
 
     void Headbutt()

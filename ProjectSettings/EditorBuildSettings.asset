@@ -35,4 +35,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Matthew/LoseScene.unity
     guid: 2de80824582d2d74a9db6fac76c5fced
+  - enabled: 1
+    path: Assets/Isaac/Controls.unity
+    guid: a080b195c1895b4419e06538c7ffdb52
   m_configObjects: {}
