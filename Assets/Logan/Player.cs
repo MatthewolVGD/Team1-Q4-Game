@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     public float speed;
@@ -36,6 +37,9 @@ public class Player : MonoBehaviour
     public float stepHeight;
     public float stepSmooth;
 
+
+    ParticleSystem hitParticles;
+    public float particleActiveTime;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,8 +51,14 @@ public class Player : MonoBehaviour
         dashes = 0;
         OGDashTim = dashTim;
         attackPos = transform.position + new Vector3(attackOffset, 0, 0);
+
         hasGrapple = false;
         OGattackTimer = attackTimer;
+
+
+        hitParticles = GetComponent<ParticleSystem>();
+        hitParticles.Stop();
+
     }
 
     private void FixedUpdate()
@@ -89,6 +99,10 @@ public class Player : MonoBehaviour
             hasGrapple = true;
             Destroy(collision.gameObject);
         }
+        if(collision.gameObject.tag == "Spike")
+        {
+            Damage(5);
+        }
     }
 
     void Update()
@@ -99,17 +113,17 @@ public class Player : MonoBehaviour
         RaycastHit2D stepUpper = Physics2D.Raycast(transform.position + new Vector3(xColl, -yColl + stepHeight, 0), Vector2.right, 0.1f);
         if (gameObject.GetComponent<SpriteRenderer>().flipX == false)
         {
-            stepLower = Physics2D.Raycast(transform.position + new Vector3(xColl - 0.03f, -yColl + 0.01f, 0), Vector2.right, 0.1f);
-            stepUpper = Physics2D.Raycast(transform.position + new Vector3(xColl - 0.03f, -yColl + stepHeight, 0), Vector2.right, 0.1f);
-            Debug.DrawRay(transform.position + new Vector3(xColl - 0.03f, -yColl + 0.01f, 0), Vector2.right, Color.red);
-            Debug.DrawRay(transform.position + new Vector3(xColl - 0.03f, -yColl + stepHeight, 0), Vector2.right, Color.red);        
+            stepLower = Physics2D.Raycast(transform.position + new Vector3(xColl + 0.01f, -yColl + 0.01f, 0), Vector2.right, 0.1f);
+            stepUpper = Physics2D.Raycast(transform.position + new Vector3(xColl + 0.01f, -yColl + stepHeight, 0), Vector2.right, 0.1f);
+            Debug.DrawRay(transform.position + new Vector3(xColl + 0.01f, -yColl + 0.01f, 0), Vector2.right, Color.red);
+            Debug.DrawRay(transform.position + new Vector3(xColl + 0.01f, -yColl + stepHeight, 0), Vector2.right, Color.red);        
         }
         else if (gameObject.GetComponent<SpriteRenderer>().flipX == true)
         {
-            stepLower = Physics2D.Raycast(transform.position + new Vector3(-xColl - 0.04f, -yColl + 0.01f, 0), -Vector2.right, 0.1f);
-            stepUpper = Physics2D.Raycast(transform.position + new Vector3(-xColl - 0.04f, -yColl + stepHeight, 0), -Vector2.right, 0.1f);
-            Debug.DrawRay(transform.position + new Vector3(-xColl - 0.04f, -yColl + 0.01f, 0), -Vector2.right, Color.red);
-            Debug.DrawRay(transform.position + new Vector3(-xColl - 0.04f, -yColl + stepHeight, 0), -Vector2.right, Color.red);
+            stepLower = Physics2D.Raycast(transform.position + new Vector3(-xColl - 0.01f, -yColl + 0.01f, 0), -Vector2.right, 0.1f);
+            stepUpper = Physics2D.Raycast(transform.position + new Vector3(-xColl - 0.01f, -yColl + stepHeight, 0), -Vector2.right, 0.1f);
+            Debug.DrawRay(transform.position + new Vector3(-xColl - 0.01f, -yColl + 0.01f, 0), -Vector2.right, Color.red);
+            Debug.DrawRay(transform.position + new Vector3(-xColl - 0.01f, -yColl + stepHeight, 0), -Vector2.right, Color.red);
         }
         if(stepLower.collider !=null)
         {
@@ -231,8 +245,11 @@ public class Player : MonoBehaviour
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
+            SceneManager.LoadScene("LoseScene");
             Destroy(gameObject);
         }
+        Debug.Log(damage);
+        StartCoroutine(Particles());
     }
     //Attack
     void Attack()
@@ -274,5 +291,13 @@ public class Player : MonoBehaviour
             collision.GetComponent<AudioCheckpoints>().source.clip = collision.GetComponent<AudioCheckpoints>().clip;
             collision.GetComponent<AudioCheckpoints>().source.Play();
         }
+    }
+
+    IEnumerator Particles()
+    {
+        
+        hitParticles.Play();
+        yield return new WaitForSeconds(particleActiveTime);
+        hitParticles.Stop();
     }
 }

@@ -1243,21 +1243,6 @@ PrefabInstance:
       propertyPath: healthbar
       value: 
       objectReference: {fileID: 1360780469}
-    - target: {fileID: 2905224095815954677, guid: 68107e46b68503b48a43aed4bbfc770f,
-        type: 3}
-      propertyPath: attackTimer
-      value: 0.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 2905224095819628320, guid: 68107e46b68503b48a43aed4bbfc770f,
-        type: 3}
-      propertyPath: m_SortingLayerID
-      value: 889894617
-      objectReference: {fileID: 0}
-    - target: {fileID: 2905224095819628320, guid: 68107e46b68503b48a43aed4bbfc770f,
-        type: 3}
-      propertyPath: m_SortingLayer
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2905224095998167573, guid: 68107e46b68503b48a43aed4bbfc770f,
         type: 3}
       propertyPath: m_camera

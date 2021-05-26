@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class ChargeEnemyScript : MonoBehaviour
 {
     #region MainVariables
@@ -18,7 +18,7 @@ public class ChargeEnemyScript : MonoBehaviour
     public float chargerAtkDist;//How close the player has to be for a charging enemy to attack them
     public float chargeSpeed;//Speed enemy charges at
     public bool charging;//Whether enemy is charging
-    bool stunned;//Whether enemy is stunned
+    public bool stunned;//Whether enemy is stunned
     public float stunTime;//How long enemy is stunned
     float ogStunTime;//OG how long enemy is stunned for reset purposes
     public float followClose;//How close the enemy will get before it stops following the player
@@ -70,16 +70,17 @@ public class ChargeEnemyScript : MonoBehaviour
         {
             Movement();
         }
-        
-        if(Physics2D.OverlapBoxAll(gameObject.transform.position, new Vector2(2f * chargerAtkDist, 2f * gameObject.transform.localScale.y), playerLayer ) != null)
+        Collider2D[] box = Physics2D.OverlapBoxAll(gameObject.transform.position, new Vector2(2f * chargerAtkDist, 2f * gameObject.transform.localScale.y), 0f, playerLayer);
+        if (box.Length > 0)
         {
+            
             if (attackTimer <= 0f && !stunned)
             {
                 StartCoroutine(ChargeAttack());
                 attackTimer = ogAttackTimer;
             }
         }
-        if(Physics2D.OverlapCircleAll(headbuttPos, headbuttDistance, playerLayer) != null)
+        /*if(Physics2D.OverlapCircleAll(headbuttPos, headbuttDistance, playerLayer) != null)
         {
             if (headbuttTimer <= 0f && !stunned && !charging)
             {
@@ -87,7 +88,7 @@ public class ChargeEnemyScript : MonoBehaviour
                 headbuttTimer = ogHeadbuttTimer;
             }
         }
-
+        */
         if(gameObject.GetComponent<SpriteRenderer>().flipX == false)
         {
             headbuttPos = transform.position + new Vector3(headbuttOffset, 0, 0);
@@ -125,16 +126,27 @@ public class ChargeEnemyScript : MonoBehaviour
 
     void Movement()//Handles all enemy movement
     {
+        if (transform.position.x - player.position.x < 0f)//Player to right
+        {
+            
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
+        else if (transform.position.x - player.position.x > 0f)//Player to left
+        {
+            
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
+
 
         if (transform.position.x - player.position.x < -followClose)//Player to right
         {
             rb.velocity = new Vector2(speed, rb.velocity.y);
-            GetComponent<SpriteRenderer>().flipX = false;
+            
         }
         else if (transform.position.x - player.position.x > followClose)//Player to left
         {
             rb.velocity = new Vector2(-speed, rb.velocity.y);
-            GetComponent<SpriteRenderer>().flipX = true;
+           
         }
         else if (transform.position.x - player.position.x >= -followClose || transform.position.x - player.position.x <= followClose)
         {
@@ -219,9 +231,15 @@ public class ChargeEnemyScript : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
+            if (gameObject.name == "Boss")
+            {
+                SceneManager.LoadScene("WinScene");
+            }
             Destroy(gameObject);
+            dealer.gameObject.GetComponent<Player>().currentHealth += detAdd;
+            
         }
-        dealer.gameObject.GetComponent<Player>().currentHealth += detAdd;
+ 
         healthBarAccess.GetComponent<EnemyHealthBar>().currentHealth = health;
         StartCoroutine(Particles());
     }

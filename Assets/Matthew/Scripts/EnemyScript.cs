@@ -62,15 +62,14 @@ public class EnemyScript : MonoBehaviour
         }
         else if (gameObject.GetComponent<SpriteRenderer>().flipX == true)
         {
-            stepLower = Physics2D.Raycast(transform.position + new Vector3(-xColl - 0.06f, -yColl + 0.01f, 0), -Vector2.right, 0.1f);
-            stepUpper = Physics2D.Raycast(transform.position + new Vector3(-xColl - 0.06f, -yColl + stepHeight, 0), -Vector2.right, 0.1f);
-            Debug.DrawRay(transform.position + new Vector3(-xColl - 0.06f, -yColl + 0.01f, 0), -Vector2.right, Color.red);
-            Debug.DrawRay(transform.position + new Vector3(-xColl - 0.06f, -yColl + stepHeight, 0), -Vector2.right, Color.red);
+            stepLower = Physics2D.Raycast(transform.position + new Vector3(-xColl - 0.05f, -yColl + 0.01f, 0), -Vector2.right, 0.1f);
+            stepUpper = Physics2D.Raycast(transform.position + new Vector3(-xColl - 0.05f, -yColl + stepHeight, 0), -Vector2.right, 0.1f);
+            Debug.DrawRay(transform.position + new Vector3(-xColl - 0.05f, -yColl + 0.01f, 0), -Vector2.right, Color.red);
+            Debug.DrawRay(transform.position + new Vector3(-xColl - 0.05f, -yColl + stepHeight, 0), -Vector2.right, Color.red);
         }
         if (stepLower.collider != null)
         {
-            Debug.Log("Trying");
-            Debug.Log(stepLower.collider.name);
+            
 
             if (stepUpper.collider == null)
             {
@@ -113,15 +112,27 @@ public class EnemyScript : MonoBehaviour
     {
 
 
+        if (transform.position.x - player.position.x < 0f)//Player to right
+        {
+
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
+        else if (transform.position.x - player.position.x > 0f)//Player to left
+        {
+
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
+
+
         if (transform.position.x - player.position.x < -followClose)//Player to right
         {
             rb.velocity = new Vector2(speed, rb.velocity.y);
-            GetComponent<SpriteRenderer>().flipX = false;
+
         }
         else if (transform.position.x - player.position.x > followClose)//Player to left
         {
             rb.velocity = new Vector2(-speed, rb.velocity.y);
-            GetComponent<SpriteRenderer>().flipX = true;
+
         }
         else if (transform.position.x - player.position.x >= -followClose || transform.position.x - player.position.x <= followClose)
         {
@@ -163,9 +174,9 @@ public class EnemyScript : MonoBehaviour
 
     void Attack()//Handles enemy attack
     {
-        GetComponent<SpriteRenderer>().color = Color.red;
+        
         player.gameObject.GetComponent<Player>().Damage(damage);
-        GetComponent<SpriteRenderer>().color = Color.white;
+        
     }
 
     public void Damage(int damage, GameObject dealer)//Handles enemy taking damage
@@ -178,7 +189,7 @@ public class EnemyScript : MonoBehaviour
         }
         
         healthBarAccess.GetComponent<EnemyHealthBar>().currentHealth = health;
-        Debug.Log("Here");
+        
         StartCoroutine(Particles());
     }
     private void OnDrawGizmosSelected()
@@ -189,7 +200,7 @@ public class EnemyScript : MonoBehaviour
 
     IEnumerator Particles()
     {
-        Debug.Log("Trying");
+        
         hitParticles.Play();
         yield return new WaitForSeconds(particleActiveTime);
         hitParticles.Stop();
